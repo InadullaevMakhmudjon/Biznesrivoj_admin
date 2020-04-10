@@ -1,0 +1,5 @@
+export default {
+  FULFILLED: '_FULFILLED',
+  REJECTED: '_REJECTED',
+  PENDING: '_PENDING',
+};
