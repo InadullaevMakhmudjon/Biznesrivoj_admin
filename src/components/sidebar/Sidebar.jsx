@@ -56,33 +56,26 @@ export default () => {
     >
       <Paper
         elevation={0}
-        style={{
-          width: '260px', height: '100vh', padding: '10px',
-        }}
+        style={classes.paperContainer}
       >
-        <div style={{
-          display: 'flex', height: '120px', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', margin: '10px',
-        }}
-        >
+        <div style={classes.conteiner}>
           <img
-            style={{
-              width: '75px', height: '75px', border: '5px solid green', borderRadius: '50%', padding: '1px', borderColor: '#EBEDF2',
-            }}
+            style={classes.image}
             alt="hello"
             src={user.image}
           />
-          <Typography align="center" style={{ color: '#5E5E5E' }} variant="h6">{user.fullName}</Typography>
+          <Typography align="center" className={classes.title} variant="h6">{user.fullName}</Typography>
         </div>
         <Divider />
         {links}
       </Paper>
       <Button
         variant="outlined"
+        className={classes.button}
         onClick={() => {
           history.push('/');
           dispatch(logout());
         }}
-        style={{ margin: '10px' }}
       >
         Logout
       </Button>
