@@ -1,18 +1,29 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router, Switch, Route, Redirect,
+} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Auth from '../views/auth/Auth';
-import { logout } from '../redux/modules/auth/actions';
+import Home from '../views/home/Home';
+import Components from '../utils/sidebar-elements';
 
 export default () => {
-  const dispatch = useDispatch();
   const token = useSelector(({ auth }) => auth.token);
   if (!token) {
     return <Auth />;
   }
   return (
-    <>
-      <h1>You are logged in</h1>
-      <button type="button" onClick={() => dispatch(logout())}>Logout</button>
-    </>
+    <Router>
+      <Home>
+        <Switch>
+          {
+            Components.map(({ path, component }) => (
+              <Route key={path} exact path={path} component={component} />
+            ))
+          }
+          <Redirect from="/" to="/dashboard" />
+        </Switch>
+      </Home>
+    </Router>
   );
 };
