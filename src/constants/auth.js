@@ -1,4 +1,5 @@
 export default {
   LOGIN: 'AUTH_LOGIN',
+  DETAILS: 'AUTH_DETAILS',
   LOGOUT: 'AUTH_LOGOUT',
 };
