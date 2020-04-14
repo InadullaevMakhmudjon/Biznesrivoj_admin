@@ -3,12 +3,12 @@ import Typography from '@material-ui/core/Typography';
 import WorkIcon from '@material-ui/icons/Work';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import EmailIcon from '@material-ui/icons/Email';
 import TextField from '@material-ui/core/TextField';
 import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import DialpadIcon from '@material-ui/icons/Dialpad';
 import { login } from '../../redux/modules/auth/actions';
 import style from '../../assets/jss/components/login';
 
@@ -30,10 +30,10 @@ export default () => {
 
         <Grid container spacing={2} alignItems="flex-end" justify="center" className={classes.emailText}>
           <Grid item xs={1}>
-            <EmailIcon />
+            <DialpadIcon />
           </Grid>
           <Grid item xs={11} className={classes.textField}>
-            <TextField onKeyUp={(e) => { if (e.keyCode === 13) { dispatch(login({ phone, password })); } }} onChange={(e) => setPhone(e.target.value)} fullWidth label="Email" />
+            <TextField onKeyUp={(e) => { if (e.keyCode === 13) { dispatch(login({ phone, password })); } }} onChange={(e) => setPhone(e.target.value)} fullWidth label="Phone" />
           </Grid>
         </Grid>
 
