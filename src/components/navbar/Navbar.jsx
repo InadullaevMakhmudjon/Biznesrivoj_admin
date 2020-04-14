@@ -9,8 +9,10 @@ import elements from '../../utils/sidebar-elements';
 
 const styles = makeStyles(style);
 
+const isActive = (routeName) => (window.location.href.indexOf(routeName) > -1);
+
 export default () => {
-  const [route, setRoute] = useState(null);
+  const [route, setRoute] = useState(elements.find(({ path }) => isActive(path)));
   const classes = styles();
   const history = useHistory();
 

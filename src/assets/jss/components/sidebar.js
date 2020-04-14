@@ -10,6 +10,7 @@ export default {
   },
   active: {
     background: '#CDCDCD',
+    transition: 'all 300ms linear',
     '&:hover, &:focus': {
       background: '#CDCDCD',
     },
