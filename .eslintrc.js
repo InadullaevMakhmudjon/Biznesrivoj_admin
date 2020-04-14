@@ -23,6 +23,7 @@ module.exports = {
   ],
   rules: {
     "react/jsx-filename-extension": 0,
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "react/jsx-props-no-spreading": 0
   },
 };

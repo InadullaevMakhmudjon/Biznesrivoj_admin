@@ -3,12 +3,13 @@ import status from '../../../constants/promises';
 
 const initialState = {
   loading: false,
+  error: null,
   token: localStorage.getItem('token'),
 };
 
 const map = {
   [`${types.LOGIN}${status.PENDING}`]: (state) => ({ ...state, loading: true }),
-  [`${types.LOGIN}${status.REJECTED}`]: (state) => ({ ...state, loading: false }),
+  [`${types.LOGIN}${status.REJECTED}`]: (state, { payload }) => ({ ...state, loading: false, error: payload }),
   [`${types.LOGIN}${status.FULFILLED}`]: (state, { payload: { data } }) => {
     localStorage.setItem('token', data.token);
     return { ...state, loading: true, token: data.token };

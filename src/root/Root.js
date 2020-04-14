@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Auth from '../views/auth/Auth';
 import { logout } from '../redux/modules/auth/actions';
 
-
 export default () => {
   const dispatch = useDispatch();
   const token = useSelector(({ auth }) => auth.token);
