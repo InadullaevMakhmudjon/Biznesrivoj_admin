@@ -26,7 +26,7 @@ export default () => {
   return (
     <Snackbar
       open={open}
-      autoHideDuration={1000}
+      autoHideDuration={4000}
       onClose={handleClose}
     >
       <Alert onClose={handleClose} severity="error">{customError.message}</Alert>
