@@ -9,8 +9,9 @@ import './index.css';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Root />
-    <Error />
+    <Error>
+      <Root />
+    </Error>
   </Provider>,
   document.getElementById('root'),
 );

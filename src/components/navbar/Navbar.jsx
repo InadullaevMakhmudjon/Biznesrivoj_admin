@@ -17,7 +17,7 @@ export default () => {
   const history = useHistory();
 
   history.listen(({ pathname }) => {
-    setRoute(elements.find(({ path }) => path === pathname));
+    setRoute(elements.find(({ path }) => pathname.includes(path)));
   });
 
   return (

@@ -56,11 +56,11 @@ export default () => {
     >
       <Paper
         elevation={0}
-        style={classes.paperContainer}
+        className={classes.paperContainer}
       >
-        <div style={classes.conteiner}>
+        <div className={classes.conteiner}>
           <img
-            style={classes.image}
+            className={classes.image}
             alt="hello"
             src={user.image}
           />

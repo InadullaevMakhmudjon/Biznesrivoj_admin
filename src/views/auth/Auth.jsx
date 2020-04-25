@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import style from '../../assets/jss/views/auth';
+import style from '../../assets/jss/views/auth.js';
 import Login from '../../components/login/Login';
 
 const styles = makeStyles(style);

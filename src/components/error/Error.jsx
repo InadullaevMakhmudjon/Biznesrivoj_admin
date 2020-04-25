@@ -1,35 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
+import PropTypes from 'prop-types';
 import MaterialAlert from '@material-ui/lab/Alert';
-import axios from '../../api';
+import { useDispatch, useSelector } from 'react-redux';
+import { listen, close } from '../../redux/modules/error/actions';
 
 const Alert = (props) => <MaterialAlert elevation={6} variant="filled" {...props} />;
 
-export default () => {
-  const [open, setOpen] = useState(false);
-  const [customError, setError] = useState({});
+const Error = ({ children }) => {
+  const dispatch = useDispatch();
+  const open = useSelector(({ error }) => error.open);
+  const message = useSelector(({ error }) => error.message);
+  const handleClose = () => { dispatch(close()); };
 
-  const handleClose = () => { setOpen(false); };
-
-  axios.interceptors.response.use(null, (error) => {
-    if (error.response) {
-      setError({ message: error.response.data.message || error.response.data });
-    } else if (error.request) {
-      setError({ message: error.request });
-    } else {
-      setError({ message: error.message });
-    }
-    setOpen(true);
-    return Promise.reject(error);
-  });
+  useEffect(() => {
+    dispatch(listen());
+  }, []);
 
   return (
-    <Snackbar
-      open={open}
-      autoHideDuration={4000}
-      onClose={handleClose}
-    >
-      <Alert onClose={handleClose} severity="error">{customError.message}</Alert>
-    </Snackbar>
+    <>
+      { children }
+      <Snackbar
+        open={open}
+        autoHideDuration={4000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error">{message}</Alert>
+      </Snackbar>
+    </>
   );
 };
+
+Error.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default Error;

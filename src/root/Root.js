@@ -5,7 +5,7 @@ import {
 import { useSelector } from 'react-redux';
 import Auth from '../views/auth/Auth';
 import Home from '../views/home/Home';
-import Components from '../utils/sidebar-elements';
+import routes from '../routes/router';
 
 export default () => {
   const token = useSelector(({ auth }) => auth.token);
@@ -17,7 +17,7 @@ export default () => {
       <Home>
         <Switch>
           {
-            Components.map(({ path, component }) => (
+            routes.map(({ path, component }) => (
               <Route key={path} exact path={path} component={component} />
             ))
           }
