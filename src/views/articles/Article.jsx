@@ -32,7 +32,7 @@ export default () => {
 
   const handleSave = () => {
     const action = slug ? update : create;
-    dispatchAction(action(article, slug));
+    dispatchAction(action({ ...article, bodyUzState: '', bodyKrState: '' }, slug));
     history.goBack();
   };
 
