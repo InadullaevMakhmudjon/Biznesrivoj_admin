@@ -63,7 +63,7 @@ const Form = ({ dispatch, article }) => {
   const classes = style();
   const dispatchAction = useDispatch();
   const categories = useSelector((state) => state.categories.categories);
-  useEffect(() => { dispatchAction(getAll()); }, []);
+  useEffect(() => { dispatchAction(getAll()); }, [dispatchAction]);
 
   const handleChangeCategory = (e) => {
     dispatch({ type: types.SET_CATEGORIES, payload: e.target.value });

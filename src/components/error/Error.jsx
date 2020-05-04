@@ -15,7 +15,7 @@ const Error = ({ children }) => {
 
   useEffect(() => {
     dispatch(listen());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

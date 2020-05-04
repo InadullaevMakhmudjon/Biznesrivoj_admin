@@ -42,7 +42,7 @@ export default () => {
         .then(({ data: payload }) => dispatch({ type: types.SET_ARTICLE, payload }))
         .catch(() => history.goBack());
     }
-  }, []);
+  }, [history, slug]);
 
   return (
     <>
