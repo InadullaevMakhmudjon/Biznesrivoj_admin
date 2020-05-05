@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -17,6 +17,7 @@ import classNames from 'classnames';
 import { getAll } from '../../redux/modules/categories/actions';
 import { types } from './hooks/useArticle';
 import styles from '../../assets/jss/views/forms';
+import Files from '../../components/articles/Files';
 
 const MenuProps = {
   PaperProps: {
@@ -63,6 +64,7 @@ const Form = ({ dispatch, article }) => {
   const classes = style();
   const dispatchAction = useDispatch();
   const categories = useSelector((state) => state.categories.categories);
+  const elem = useRef(0);
   useEffect(() => { dispatchAction(getAll()); }, [dispatchAction]);
 
   const handleChangeCategory = (e) => {
@@ -79,6 +81,14 @@ const Form = ({ dispatch, article }) => {
   return (
     <>
       <Grid container>
+        <Grid container>
+          <Grid item xs={3} ref={elem} style={{ padding: '5px' }}>
+            <Files main elem={elem} />
+          </Grid>
+          <Grid item xs={9} style={{ padding: '5px' }}>
+            <Files elem={elem} />
+          </Grid>
+        </Grid>
         <Grid container alignItems="center">
           <Grid item xs={4} className={classes.gridItem}>
             <TextareaAutosize
@@ -101,7 +111,7 @@ const Form = ({ dispatch, article }) => {
           <Grid item xs={4} className={classes.gridItem}>
 
             <FormControl className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">Select category</InputLabel>
+              <InputLabel id="demo-simple-select-label" />
               <Select
                 labelId="demo-mutiple-checkbox-label"
                 id="demo-mutiple-checkbox"
