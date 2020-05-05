@@ -61,7 +61,7 @@ export default () => {
         <div className={classes.conteiner}>
           <img
             className={classes.image}
-            alt="hello"
+            alt="User"
             src={user.image}
           />
           <Typography align="center" className={classes.title} variant="h6">{user.fullName}</Typography>
