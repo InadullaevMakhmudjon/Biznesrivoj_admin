@@ -1,0 +1,6 @@
+export default {
+  GETALL: 'USERS_GETALL',
+  GET: 'USERS_GET',
+  UPDATE: 'USERS_UPDATE',
+  DELETE: 'USERS_DELETE',
+};
