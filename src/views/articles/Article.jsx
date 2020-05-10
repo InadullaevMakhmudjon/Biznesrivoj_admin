@@ -13,6 +13,7 @@ const defaultArticle = {
   body_uz: '',
   body_kr: '',
   title_uz: '',
+  image: '',
   title_kr: '',
   description_uz: '',
   description_kr: '',

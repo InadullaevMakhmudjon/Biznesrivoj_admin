@@ -76,6 +76,8 @@ const Form = ({ dispatch, article }) => {
     return find ? find.name : '';
   });
 
+  const setImage = (payload) => dispatch({ type: types.SET_IMAGE, payload });
+
   const dispatcher = (type, { target: { value: payload } }) => dispatch({ type, payload });
 
   return (
@@ -83,7 +85,7 @@ const Form = ({ dispatch, article }) => {
       <Grid container>
         <Grid container>
           <Grid item xs={3} ref={elem} style={{ padding: '5px' }}>
-            <Files main elem={elem} />
+            <Files main elem={elem} setImage={setImage} image={article.image} />
           </Grid>
           <Grid item xs={9} style={{ padding: '5px' }}>
             <Files elem={elem} />

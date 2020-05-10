@@ -22,6 +22,7 @@ const types = {
   SET_SLUG: 'SET_SLUG',
   SET_CATEGORIES: 'SET_CATEGORIES',
   SET_ARTICLE: 'SET_ARTICLE',
+  SET_IMAGE: 'SET_ARTICLEIMAGE',
 };
 
 const map = {
@@ -36,6 +37,7 @@ const map = {
   [types.SET_METAFIELDS]: (state, { payload }) => ({ ...state, metaFields: payload }),
   [types.SET_SLUG]: (state, { payload }) => ({ ...state, slug: payload }),
   [types.SET_CATEGORIES]: (state, { payload }) => ({ ...state, categories: payload }),
+  [types.SET_IMAGE]: (state, { payload }) => ({ ...state, image: payload }),
   [types.SET_ARTICLE]: (state, { payload }) => ({
     // eslint-disable-next-line max-len
     ...state, ...payload, categories: payload.categories.map(({ id }) => id), bodyUzState: toState(payload.body_uz), bodyKrState: toState(payload.body_kr),

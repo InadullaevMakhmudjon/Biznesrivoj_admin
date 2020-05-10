@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import TargetBox from './TargetBox';
 import File from '../../api/Files';
 
-const Files = ({ main, elem }) => {
-  const [mainImage, setMainImage] = useState('');
+const Files = ({ main, setImage, image }) => {
   const [images, setImages] = useState([]);
 
   const handleFileDrop = (item, monitor) => {
@@ -15,25 +14,30 @@ const Files = ({ main, elem }) => {
       const formData = new FormData();
       formData.append('file', file[0]);
       File.upload(formData).then(({ data }) => {
-        if (main) setMainImage(data.url);
-        else setImages(images.concat(data.url));
+        if (main) {
+          setImage(data.url);
+        } else setImages(images.concat(data.url));
       });
     }
   };
 
   return (
     <DndProvider backend={Backend}>
-      <TargetBox onDrop={handleFileDrop} mainImage={mainImage} main={main} images={images} />
+      <TargetBox onDrop={handleFileDrop} mainImage={image} main={main} images={images} />
     </DndProvider>
   );
 };
 
 Files.propTypes = {
   main: PropTypes.bool,
+  setImage: PropTypes.func,
+  image: PropTypes.string,
 };
 
 Files.defaultProps = {
   main: false,
+  setImage: () => {},
+  image: '',
 };
 
 export default Files;
