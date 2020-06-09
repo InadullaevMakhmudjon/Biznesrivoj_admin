@@ -18,8 +18,8 @@ const map = {
   [`${types.DETAILS}${status.PENDING}`]: (state) => ({ ...state, loading: true }),
   [`${types.DETAILS}${status.REJECTED}`]: () => (state, { payload }) => ({ ...state, loading: false, error: payload }),
   [`${types.DETAILS}${status.FULFILLED}`]: (state, { payload: { data } }) => {
-    localStorage.setItem('user', JSON.stringify(data.user));
-    return { ...state, loading: false, user: data.user };
+    localStorage.setItem('user', JSON.stringify(data));
+    return { ...state, loading: false, user: data };
   },
   [types.LOGOUT]: (state) => {
     localStorage.removeItem('token');
