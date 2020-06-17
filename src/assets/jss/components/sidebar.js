@@ -5,7 +5,7 @@ export default {
   item: {
     textDecoration: 'none',
     '&:hover,&:focus,&:visited,&': {
-      color: '#5E5E5E',
+      color: '#212529',
     },
   },
   paperContainer: {
@@ -22,7 +22,7 @@ export default {
     borderColor: '#EBEDF2',
   },
   button: { margin: '10px' },
-  title: { color: '#5E5E5E' },
+  title: { color: '#212529' },
   conteiner: {
     display: 'flex',
     height: '120px',

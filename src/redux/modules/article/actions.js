@@ -1,9 +1,10 @@
 import types from '../../../constants/articles';
+import ArticleService from '../../../api/Articles';
 
-export const getAll = (page, limit) => (dispatch, _, { Articles }) => {
+export const getAll = (page, limit) => (dispatch) => {
   dispatch({
     type: types.GETALL,
-    payload: Articles.getAll(page, limit),
+    payload: ArticleService.getAll(page, limit),
   });
 };
 

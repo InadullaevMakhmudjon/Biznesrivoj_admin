@@ -63,7 +63,7 @@ const headers = [
 export default () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
   const history = useHistory();
 
   const articles = useSelector(({ article }) => article.articles);
