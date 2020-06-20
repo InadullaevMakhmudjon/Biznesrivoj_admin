@@ -4,7 +4,7 @@ export const TableWrapper = styled.div`
     border-radius: 4px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
-    margin: 80px 10px 10px 10px;
+    margin: 10px;
     padding:0px 10px 10px 10px;
 `;
 
@@ -26,12 +26,14 @@ export const TableHeaderWrapper = styled.div`
     display:flex;
     flex-direction:row;
     align-items:center;
+    padding-top:5px;
+    padding-bottom:5px;
 `;
 
 export const TableActionsWrapper = styled.div`
     width: ${({ isFocussed }) => (isFocussed ? '350px' : '50px')};
     margin-left: auto;
-    margin-right: 0px !important;
+    margin-right: 10px !important;
     transition: all 0.3s ease-in-out 0s;
     display:flex;
 `;
@@ -83,6 +85,7 @@ export const InputWrapper = styled.div`
     width: 100%;
     background-color: rgb(255, 255, 255);
     color: rgb(170, 170, 170);
+    justify-content:flex-end;
 
     &  span{
         position: absolute;
@@ -119,7 +122,7 @@ export const InputWrapper = styled.div`
 export const InputStyled = styled.input`
     font-family: Lato,Arial,Helvetica,sans-serif;
     font-weight:600;
-    width: 100%;
+    width: ${({ isFocussed }) => (isFocussed ? '100%' : '10px')};
     color: rgb(170, 170, 170);
     padding: 10px 34px 10px 11px;
     background: none;
@@ -128,6 +131,5 @@ export const InputStyled = styled.input`
     border-image: initial;
     border-radius: 5px;
     transition: all 0.3s ease-in-out 0s;
-    margin-right:15px;
     outline:unset;  
 `;

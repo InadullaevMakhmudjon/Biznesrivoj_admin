@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTable } from 'react-table';
+import ReactTable, { useTable, usePagination } from 'react-table';
+
 
 import { TableContainer } from './style';
 
@@ -15,7 +16,8 @@ const Table = ({ columns, data, handleRowClick }) => {
   } = useTable({
     columns,
     data,
-  });
+  },
+  usePagination);
 
   // Render the UI for your table
   return (

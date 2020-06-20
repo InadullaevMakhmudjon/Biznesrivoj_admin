@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 // eslint-disable-next-line import/prefer-default-export
 export const TableContainer = styled.div`
   table {
@@ -27,7 +28,6 @@ export const TableContainer = styled.div`
 
   table td {
     padding: 10px 20px;
-    text-align: center;
     border: 1px solid #dfdfdf;
     background-color:#fff;
     font-size: 14px;

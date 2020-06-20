@@ -35,7 +35,7 @@ const ArticlesContainer = () => {
   const isLoading = useSelector((state) => isLoadingSelector(state));
   const total = useSelector(({ article }) => article.total);
 
-  useEffect(() => dispatch(getAll(page + 1, rowsPerPage)), [dispatch, rowsPerPage, page]);
+  useEffect(() => dispatch(getAll()), [dispatch]);
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
@@ -75,7 +75,11 @@ const ArticlesContainer = () => {
                 <CloseIcon />
               </span>
             ) : (
-              <span>
+              <span onClick={() => {
+                setSearchValue('');
+                setIsFocused(true);
+              }}
+              >
                 <SearchIcon />
               </span>
             )}
