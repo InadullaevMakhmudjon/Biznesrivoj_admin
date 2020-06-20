@@ -1,9 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ReactTable, { useTable, usePagination } from 'react-table';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import {
+  useTable,
+  usePagination,
+  useFilters,
+  useGroupBy,
+  useSortBy,
+  useExpanded,
+  useRowSelect,
+} from "react-table";
 
+import Pagination from "../Pagination";
 
-import { TableContainer } from './style';
+import { TableContainer } from "./style";
 
 const Table = ({ columns, data, handleRowClick }) => {
   // Use the state and functions returned from useTable to build your UI
@@ -11,15 +20,32 @@ const Table = ({ columns, data, handleRowClick }) => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
     prepareRow,
-  } = useTable({
-    columns,
-    data,
-  },
-  usePagination);
-
-  // Render the UI for your table
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize, sortBy, groupBy, expanded, filters },
+  } = useTable(
+    {
+      columns,
+      data,
+      autoResetPage: true,
+      autoResetSelectedRows: true,
+      disableMultiSort: true,
+    },
+    useFilters,
+    useGroupBy,
+    useSortBy,
+    useExpanded,
+    usePagination,
+    useRowSelect
+  );
   return (
     <TableContainer>
       <table {...getTableProps()}>
@@ -27,22 +53,41 @@ const Table = ({ columns, data, handleRowClick }) => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                <th
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  style={{ width: column.width }}
+                >
+                  {column.render("Header")}
+                </th>
               ))}
             </tr>
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
+          {page.map((row) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()} onClick={() => handleRowClick(row)}>
-                {row.cells.map((cell) => <td {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
+                {row.cells.map((cell) => (
+                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                ))}
               </tr>
             );
           })}
         </tbody>
       </table>
+      <Pagination
+        gotoPage={gotoPage}
+        previousPage={previousPage}
+        nextPage={nextPage}
+        pageIndex={pageIndex}
+        pageOptions={pageOptions}
+        setPageSize={setPageSize}
+        pageSize={pageSize}
+        canNextPage={canNextPage}
+        canPreviousPage={canPreviousPage}
+        pageCount={pageCount}
+      />
     </TableContainer>
   );
 };
