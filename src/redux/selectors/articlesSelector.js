@@ -3,6 +3,8 @@ import moment from 'moment';
 
 export const articlesList = (state) => state.article.articles;
 
+export const getArticle = (state) => state.article.article;
+
 const createFormattedArticle = (item) => ({
   id: item.id,
   route: `/articles/${item.slug}`,
@@ -30,4 +32,10 @@ export const articleLoading = (state) => state.article.loading;
 export const isLoadingSelector = createSelector(
   articleLoading,
   (loading) => loading,
+);
+
+
+export const articleSelector = createSelector(
+  getArticle,
+  (article) => article,
 );

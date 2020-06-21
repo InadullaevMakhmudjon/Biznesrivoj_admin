@@ -8,6 +8,7 @@ import Home from '../views/home/Home';
 import Users from '../views/users/Users';
 
 import Articles from '../views/ArticleContainer';
+import EditArticle from '../views/EditArticle';
 
 export default () => {
   const token = useSelector(({ auth }) => auth.token);
@@ -18,7 +19,8 @@ export default () => {
     <Router>
       <Home>
         <Switch>
-          <Route path="/articles" component={Articles} />
+          <Route exact path="/articles/:slug" component={EditArticle} />
+          <Route exact path="/articles" component={Articles} />
           <Route exact path="/users" component={Users} />
           <Redirect from="/" to="/articles" />
         </Switch>

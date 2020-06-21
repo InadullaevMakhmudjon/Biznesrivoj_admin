@@ -9,7 +9,7 @@ export default {
     },
   },
   paperContainer: {
-    width: '260px',
+    width: '150px',
     height: '100vh',
     padding: '10px',
   },
@@ -32,10 +32,6 @@ export default {
     margin: '10px',
   },
   active: {
-    background: '#CDCDCD',
     transition: 'all 300ms linear',
-    '&:hover, &:focus': {
-      background: '#CDCDCD',
-    },
   },
 };

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   useTable,
   usePagination,
@@ -8,11 +8,11 @@ import {
   useSortBy,
   useExpanded,
   useRowSelect,
-} from "react-table";
+} from 'react-table';
 
-import Pagination from "../Pagination";
+import Pagination from '../Pagination';
 
-import { TableContainer } from "./style";
+import { TableContainer, TableHeaderStyled } from './style';
 
 const Table = ({ columns, data, handleRowClick }) => {
   // Use the state and functions returned from useTable to build your UI
@@ -30,7 +30,9 @@ const Table = ({ columns, data, handleRowClick }) => {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize, sortBy, groupBy, expanded, filters },
+    state: {
+      pageIndex, pageSize, sortBy, groupBy, expanded, filters,
+    },
   } = useTable(
     {
       columns,
@@ -44,7 +46,7 @@ const Table = ({ columns, data, handleRowClick }) => {
     useSortBy,
     useExpanded,
     usePagination,
-    useRowSelect
+    useRowSelect,
   );
   return (
     <TableContainer>
@@ -53,12 +55,20 @@ const Table = ({ columns, data, handleRowClick }) => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th
+                <TableHeaderStyled
+                  key={column.id}
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   style={{ width: column.width }}
+                  isSorted={
+                    column.isSorted
+                      ? column.isSortedDesc
+                        ? 'sort-desc'
+                        : 'sort-asc'
+                      : ''
+                  }
                 >
-                  {column.render("Header")}
-                </th>
+                  {column.render('Header')}
+                </TableHeaderStyled>
               ))}
             </tr>
           ))}
@@ -69,7 +79,7 @@ const Table = ({ columns, data, handleRowClick }) => {
             return (
               <tr {...row.getRowProps()} onClick={() => handleRowClick(row)}>
                 {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 ))}
               </tr>
             );

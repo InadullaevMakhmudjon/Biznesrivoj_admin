@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Table from "../../components/Table";
-import { getAll } from "../../redux/modules/article/actions";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Table from '../../components/Table';
+import { getAll } from '../../redux/modules/article/actions';
 import {
   articlesSelector,
   isLoadingSelector,
-} from "../../redux/selectors/articlesSelector";
-import Spinner from "../../components/Spinner";
+} from '../../redux/selectors/articlesSelector';
+import Spinner from '../../components/Spinner';
 
-import { CloseIcon, SearchIcon } from "../../constants/icons";
-import articlesConfig from "../../config/articlesConfig";
+import { CloseIcon, SearchIcon } from '../../constants/icons';
+import articlesConfig from '../../config/articlesConfig';
 // import { useDataTable } from '../../aire/hooks/use-data-table';
 // import { useQuestions } from './hooks/use-questions';
 
@@ -22,17 +22,21 @@ import {
   AddButtonStyled,
   InputWrapper,
   InputStyled,
-} from "./style";
+} from './style';
 
 const ArticlesContainer = () => {
   const dispatch = useDispatch();
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
 
   const articles = useSelector((state) => articlesSelector(state));
   const isLoading = useSelector((state) => isLoadingSelector(state));
 
-  useEffect(() => dispatch(getAll()), [dispatch]);
+  useEffect(() => {
+    if (!articles.length) {
+      dispatch(getAll());
+    }
+  }, [dispatch, articles]);
   if (isLoading) {
     return <Spinner />;
   }
@@ -42,7 +46,7 @@ const ArticlesContainer = () => {
         <TableActionsWrapper isFocussed>
           <InputWrapper>
             <InputStyled
-              type='text'
+              type="text"
               search={searchValue}
               value={searchValue}
               isFocussed={isFocused}
@@ -50,14 +54,14 @@ const ArticlesContainer = () => {
               onFocus={() => setIsFocused(true)}
               onBlur={() => !searchValue.length && setIsFocused(false)}
               onReset={() => {
-                searchValue("");
+                searchValue('');
                 setIsFocused(false);
               }}
             />
             {searchValue.length ? (
               <span
                 onClick={() => {
-                  setSearchValue("");
+                  setSearchValue('');
                   setIsFocused(false);
                 }}
               >
@@ -66,7 +70,7 @@ const ArticlesContainer = () => {
             ) : (
               <span
                 onClick={() => {
-                  setSearchValue("");
+                  setSearchValue('');
                   setIsFocused(true);
                 }}
               >
@@ -75,7 +79,7 @@ const ArticlesContainer = () => {
             )}
           </InputWrapper>
         </TableActionsWrapper>
-        <AddButtonStyled type='button' onClick={() => {}}>
+        <AddButtonStyled type="button" onClick={() => {}}>
           +
         </AddButtonStyled>
       </TableHeaderWrapper>

@@ -4,6 +4,6 @@ export default {
     boxShadow: 'none',
     zIndex: 1,
     position: 'absolute',
-    width: 'calc(100% - 270px)',
+    width: 'calc(100% - 160px)',
   },
 };

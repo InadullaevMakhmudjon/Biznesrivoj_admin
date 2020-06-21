@@ -8,10 +8,10 @@ export const getAll = (page, limit) => (dispatch) => {
   });
 };
 
-export const get = (slug) => (dispatch, _, { Articles }) => {
+export const get = (slug) => (dispatch) => {
   dispatch({
     type: types.GET,
-    payload: Articles.get(slug),
+    payload: ArticleService.get(slug),
   });
 };
 
@@ -27,6 +27,15 @@ export const update = (article, slug) => (dispatch, _, { Articles }) => {
     type: types.UPDATE,
     payload: Articles.update(article, slug),
   });
+};
+
+export const deleteArticle = (slug, history) => (dispatch) => {
+  dispatch({
+    type: types.DELETE,
+    payload: ArticleService.deleteArticle(slug),
+  });
+
+  history.push('/articles');
 };
 
 export default '';

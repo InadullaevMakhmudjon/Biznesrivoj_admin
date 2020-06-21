@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TableWrapper = styled.div`
   border-radius: 4px;
@@ -6,6 +6,8 @@ export const TableWrapper = styled.div`
   background-color: #ffffff;
   margin: 10px;
   padding: 0px 10px 10px 10px;
+  max-width:1440px;
+  margin:auto;
 `;
 
 export const TableTitle = styled.h2`
@@ -31,7 +33,7 @@ export const TableHeaderWrapper = styled.div`
 `;
 
 export const TableActionsWrapper = styled.div`
-  width: ${({ isFocussed }) => (isFocussed ? "350px" : "50px")};
+  width: ${({ isFocussed }) => (isFocussed ? '350px' : '50px')};
   margin-left: auto;
   margin-right: 10px !important;
   transition: all 0.3s ease-in-out 0s;
@@ -39,7 +41,7 @@ export const TableActionsWrapper = styled.div`
 `;
 
 export const OverlayRight = styled.div`
-    width:${({ open }) => (open ? "430px" : "0px")};
+    width:${({ open }) => (open ? '430px' : '0px')};
     height:100%;
     position: fixed;
     height: 100%;
@@ -119,13 +121,12 @@ export const InputWrapper = styled.div`
 export const InputStyled = styled.input`
   font-family: Lato, Arial, Helvetica, sans-serif;
   font-weight: 600;
-  width: ${({ isFocussed }) => (isFocussed ? "100%" : "10px")};
+  width: ${({ isFocussed }) => (isFocussed ? '100%' : '10px')};
   color: rgb(170, 170, 170);
   padding: 10px 34px 10px 11px;
   background: none;
   border-width: 1px;
-  border-color: ${({ isFocussed }) =>
-    isFocussed ? "#4eb1f4" : "rgba(0,0,0,0)"};
+  border-color: ${({ isFocussed }) => (isFocussed ? '#4eb1f4' : 'rgba(0,0,0,0)')};
   border-image: initial;
   border-radius: 5px;
   transition: all 0.3s ease-in-out 0s;
