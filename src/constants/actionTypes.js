@@ -1,11 +1,7 @@
 export default {
-  GETALL: 'ARTICLES_GETALL',
-  GET: 'ARTICLES_GET',
-  CREATE: 'ARTICLES_CREATE',
-  UPDATE: 'ARTICLES_UPDATE',
-  DELETE: 'DELETE_ARTICLE',
   GET_TG_BOOKS: 'get-tg-books',
   GET_TG_GIFTS: 'get-tg-gifts',
+  GET_TG_SINGLE_GIFT: 'get-tg-single-gift',
   FULFILLED: '_FULFILLED',
   REJECTED: '_REJECTED',
   PENDING: '_PENDING',

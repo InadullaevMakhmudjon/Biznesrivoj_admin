@@ -48,3 +48,18 @@ export const TextAreaStyled = styled(TextareaAutosize)`
   border-radius: 4px;
   font-family: Lato, Arial, Helvetica, sans-serif;
 `;
+
+
+export const ImageWrapper = styled.div`
+  display:flex;
+`;
+
+export const ImageStyled = styled.img`
+  width:100px;
+  height:100px;
+  object-fit:contain;
+`;
+
+export const ImageInputStyled = styled.input`
+  
+`;

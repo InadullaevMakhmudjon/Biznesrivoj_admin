@@ -11,7 +11,7 @@ const Home = ({ children }) => {
   return (
     <div>
       <Sidebar />
-      <div style={{ width: 'calc(100% - 150px)', float: 'right' }}>
+      <div style={{ width: 'calc(100% - 170px)', float: 'right' }}>
         <Navbar />
         <div style={{ marginTop: '65px', padding: '16px' }}>
           {children}

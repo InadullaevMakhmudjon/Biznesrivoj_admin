@@ -3,18 +3,6 @@ import React from 'react';
 import Pills from '../components/Pills';
 import PreviewButton from '../components/PreviewButton';
 
-function createMarkup(value) {
-  return { __html: value };
-}
-
-// {
-//   Header: "Description",
-//   accessor: "description_uz",
-//   width: "35%",
-//   Cell: ({ cell: { value } }) => (
-//     <p dangerouslySetInnerHTML={createMarkup(value)} />
-//   ),
-// },
 export default [
   {
     Header: 'Title',
@@ -24,7 +12,7 @@ export default [
   {
     Header: 'Created At',
     accessor: 'createdAt',
-    widht: '10%',
+    width: '10%',
   },
   {
     Header: 'Views',
@@ -35,7 +23,7 @@ export default [
     Header: 'Categories',
     accessor: 'categories',
     Cell: ({ cell: { value } }) => <Pills values={value} />,
-    widht: '15%',
+    width: '15%',
   },
   {
     Header: 'Preview',

@@ -14,6 +14,7 @@ export const UpdateArticleContainer = styled.div`
 
 export const WrapperStyled = styled.div`
     display:flex;   
+    margin-bottom:20px;
 `;
 
 

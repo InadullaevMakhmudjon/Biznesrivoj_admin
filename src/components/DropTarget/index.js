@@ -1,23 +1,27 @@
 import React from 'react';
 import { DropTarget } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
-import { makeStyles } from '@material-ui/core/styles';
-import style from '../../assets/jss/components/targetbox';
-import ImgesContainer from './ImgesContainer';
 
-const useStyle = makeStyles(style);
+import {
+  TargetContainer, ImageStyled, InputWrapper, InputFileStyled, LabelStyled,
+} from './style';
 
 const { FILE } = NativeTypes;
 
 const TargetBox = ({
-  canDrop, isOver, connectDropTarget, image,
+  canDrop, isOver, connectDropTarget, image, handleSelectFile,
 }) => {
-  const classes = useStyle();
   const isActive = canDrop && isOver;
   return connectDropTarget(
-    <div className={classes.box}>
-      {!isActive && !image && <img className={classes.image} src={`https://${image}`} alt="main" />}
-
+    <div>
+      <TargetContainer isActive={isActive}>
+        {!isActive && image && <ImageStyled src={`https://${image}`} alt="main" />}
+        {(isActive || !image) && <p>Drag and Drop the images</p>}
+      </TargetContainer>
+      <InputWrapper>
+        <LabelStyled>Insert image</LabelStyled>
+        <InputFileStyled type="file" accept="image/*" onChange={handleSelectFile} />
+      </InputWrapper>
     </div>,
   );
 };

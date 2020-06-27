@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Table from '../../components/Table';
-import { getAll } from '../../redux/modules/article/actions';
-import {
-  articlesSelector,
-  isLoadingSelector,
-} from '../../redux/selectors/articlesSelector';
+
+import { tgBooksSelector, isLoadingSelector } from '../../redux/selectors/booksSelector';
+import { getAllTgBooks } from '../../redux/modules/tg-books/tgBooksActions';
+
 import Spinner from '../../components/Spinner';
 
 import { CloseIcon, SearchIcon } from '../../constants/icons';
-import articlesConfig from '../../config/articlesConfig';
 
+import booksConfig from '../../config/tgBooksConfig';
 import {
   TableWrapper,
   TableHeaderWrapper,
@@ -22,22 +19,25 @@ import {
   InputStyled,
 } from './style';
 
-const ArticlesContainer = () => {
+const TGBooks = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
 
-  const articles = useSelector((state) => articlesSelector(state));
+
+  const books = useSelector((state) => tgBooksSelector(state));
   const isLoading = useSelector((state) => isLoadingSelector(state));
 
   useEffect(() => {
-    if (!articles.length) {
-      dispatch(getAll());
+    if (!books.length) {
+      dispatch(getAllTgBooks());
     }
-  }, [dispatch, articles]);
+  }, [dispatch]);
+
   if (isLoading) {
     return <Spinner />;
   }
+
   return (
     <TableWrapper>
       <TableHeaderWrapper>
@@ -81,14 +81,10 @@ const ArticlesContainer = () => {
           +
         </AddButtonStyled>
       </TableHeaderWrapper>
-      <Table columns={articlesConfig} data={articles} />
+      <Table columns={booksConfig} data={books} />
     </TableWrapper>
   );
 };
-// const { fuzzySearchFilter } = useDataTable(searchValue, searchFilter);
 
-ArticlesContainer.propTypes = {};
 
-ArticlesContainer.defaultProps = {};
-
-export default ArticlesContainer;
+export default TGBooks;

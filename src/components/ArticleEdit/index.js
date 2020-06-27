@@ -1,7 +1,8 @@
 import React from 'react';
 
+
 import {
-  EditContainer, InputWrapper, LabelStyled, InputStyled,
+  EditContainer, InputWrapper, LabelStyled, InputStyled, TextAreaStyled,
 } from './style';
 
 const labels = {
@@ -23,17 +24,17 @@ const ArticleEdit = ({
     <InputWrapper>
       <LabelStyled>{labels.slug}</LabelStyled>
       <InputStyled
-        type="text"
         disabled
         value={slug}
       />
     </InputWrapper>
     <InputWrapper>
       <LabelStyled>{labels.title}</LabelStyled>
-      <InputStyled
-        type="text"
+      <TextAreaStyled
+        placeholder="Article title"
+        rowsMin={3}
         value={title}
-        onChange={(e) => handleChangeTitle(e.target.value)}
+        onChange={(e) => {}}
       />
     </InputWrapper>
     <InputWrapper>
@@ -41,7 +42,7 @@ const ArticleEdit = ({
       <InputStyled
         type="text"
         value={metafields}
-        onChange={(e) => handleChangeMetafields(e.target.value)}
+        onChange={(e) => {}}
       />
     </InputWrapper>
 
@@ -50,17 +51,17 @@ const ArticleEdit = ({
       <InputStyled
         type="text"
         value={description}
-        onChange={(e) => handleChangeDescription(e.target.value)}
+        onChange={(e) => {}}
       />
     </InputWrapper>
 
     <InputWrapper>
       <LabelStyled>{labels.body}</LabelStyled>
-      <InputStyled
+      {/* <InputStyled
         type="text"
         value={body}
-        onChange={(e) => handleChangeDescription(e.target.value)}
-      />
+        onChange={(e) => {}}
+      /> */}
     </InputWrapper>
 
   </EditContainer>
