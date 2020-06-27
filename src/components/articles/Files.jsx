@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import DropTarget from '../DropTarget';
 import File from '../../api/Files';
 
-const Files = ({ setImage, image }) => {
+const Files = ({
+  setImage, images,
+}) => {
   const handleUpload = (file) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -16,19 +18,20 @@ const Files = ({ setImage, image }) => {
 
   const handleFileDrop = (item, monitor) => {
     if (monitor) {
-      const file = monitor.getItem().files;
-      handleUpload(file[0]);
+      const { files } = monitor.getItem();
+      files.map((file) => handleUpload(file));
     }
   };
 
   const handleSelectFile = (e) => {
-    handleUpload(e.target.files[0]);
+    const { files } = e.target;
+    Object.entries(files).map(([key, value]) => handleUpload(value));
   };
 
 
   return (
     <DndProvider backend={Backend}>
-      <DropTarget onDrop={handleFileDrop} handleSelectFile={handleSelectFile} image={image} />
+      <DropTarget onDrop={handleFileDrop} handleSelectFile={handleSelectFile} images={images} />
     </DndProvider>
   );
 };

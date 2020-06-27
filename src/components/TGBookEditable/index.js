@@ -10,9 +10,8 @@ import {
   EditContainer, InputWrapper, LabelStyled, InputStyled, TextAreaStyled,
 } from './style';
 
-const TGGiftEditable = ({
+const TGBookEditable = ({
   title,
-  handleChangeDescription,
   handleChangeTitle,
   images,
   handleImageChange,
@@ -34,7 +33,7 @@ const TGGiftEditable = ({
         onChange={(e) => handleChangeTitle(e)}
       />
     </InputWrapper>
-    <Files setImage={handleImageChange} images={images} />
+    <Files setImage={handleImageChange} images={images} multiple />
     <InputWrapper>
       <LabelStyled>{labelConfig.desc}</LabelStyled>
       {lang === 'uz' && (
@@ -68,4 +67,4 @@ const TGGiftEditable = ({
   </EditContainer>
 );
 
-export default TGGiftEditable;
+export default TGBookEditable;

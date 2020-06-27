@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import _ from 'lodash';
-import langOptions from '../../config/langConfig';
-import labelConfig from '../../config/labelConfig';
+import React, { useState, useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import _ from "lodash";
+import langOptions from "../../config/langConfig";
+import labelConfig from "../../config/labelConfig";
 
-import Spinner from '../../components/Spinner';
+import Spinner from "../../components/Spinner";
 
 import {
   UpdateArticleContainer,
@@ -14,12 +14,18 @@ import {
   SelectWrapper,
   LabelStyled,
   WrapperStyled,
-} from './style';
-import { tgSingleGiftSelector, isGiftLoadingSelector } from '../../redux/selectors/giftsSelector';
-import { getSingleGift } from '../../redux/modules/tg-single-gift/tgSingleGiftAction';
-import TGGiftEditable from '../../components/TGGiftEditable';
-import TGGiftPreview from '../../components/TGGIftPreview';
-import Button from '../../components/Button';
+} from "./style";
+import {
+  tgSingleGiftSelector,
+  isGiftLoadingSelector,
+} from "../../redux/selectors/giftsSelector";
+import {
+  getSingleGift,
+  updateGift,
+} from "../../redux/modules/tg-single-gift/tgSingleGiftAction";
+import TGGiftEditable from "../../components/TGGiftEditable";
+import TGGiftPreview from "../../components/TGGIftPreview";
+import Button from "../../components/Button";
 
 const TGGiftEdit = () => {
   const { giftId } = useParams();
@@ -28,15 +34,15 @@ const TGGiftEdit = () => {
   const [lang, setLang] = useState(langOptions[0]);
 
   const [giftDetails, setGiftDetails] = useState(null);
-  const [cyrillic, setCyrillic] = useState('');
-  const [latin, setLatin] = useState('');
+  const [cyrillic, setCyrillic] = useState("");
+  const [latin, setLatin] = useState("");
 
   const isLoading = useSelector((state) => isGiftLoadingSelector(state));
 
   const gift = useSelector((state) => tgSingleGiftSelector(state));
 
   useEffect(() => {
-    if (!gift) {
+    if (giftId) {
       dispatch(getSingleGift(giftId));
     }
   }, [dispatch, giftId]);
@@ -46,6 +52,7 @@ const TGGiftEdit = () => {
       setGiftDetails(gift);
       setCyrillic(gift.description_kr);
       setLatin(gift.description_uz);
+      setLang(langOptions[0]);
     }
   }, [gift]);
 
@@ -57,7 +64,7 @@ const TGGiftEdit = () => {
     const clone = _.cloneDeep(giftDetails);
     setGiftDetails({
       ...clone,
-      image: url,
+      image: [url],
     });
   };
 
@@ -68,7 +75,6 @@ const TGGiftEdit = () => {
       [`title_${lang.value}`]: e.target.value,
     });
   };
-
 
   function handelDescriptionChangeCyrillic(e) {
     setCyrillic(e);
@@ -87,17 +93,27 @@ const TGGiftEdit = () => {
   };
 
   const handleSave = () => {
-    console.log(giftDetails, latin, cyrillic);
+    dispatch(
+      updateGift(
+        {
+          title_kr: giftDetails.title_kr,
+          title_lat: giftDetails.title_uz,
+          description_kr: cyrillic,
+          description_lat: latin,
+          image: giftDetails.image,
+          bonus: giftDetails.bonus,
+        },
+        giftDetails.id,
+      ),
+    );
   };
+
   return (
     <UpdateArticleContainer>
       <HeadingStyled>Update TG Gift</HeadingStyled>
       <SelectWrapper>
-        <LabelStyled>
-          Choose Lang
-        </LabelStyled>
+        <LabelStyled>Choose Lang</LabelStyled>
         <SelectStyled
-          className="basic-single"
           classNamePrefix="select"
           defaultValue={langOptions[0]}
           onChange={(e) => setLang(e)}
@@ -109,33 +125,36 @@ const TGGiftEdit = () => {
 
       <WrapperStyled>
         {giftDetails && (
-        <>
-          <TGGiftEditable
-            title={giftDetails[`title_${lang.value}`]}
-            lang={lang.value}
-            descriptionCyrillic={cyrillic}
-            descriptionLatin={latin}
-            image={giftDetails.image}
-            bonus={giftDetails.bonus}
-            handleImageChange={handleImageChange}
-            handleChangeTitle={handleTitleChange}
-            handelDescriptionChangeLatin={handelDescriptionChangeLatin}
-            handelDescriptionChangeCyrillic={handelDescriptionChangeCyrillic}
-            handleChangeBonus={handleChangeBonus}
-          />
-          <TGGiftPreview
-            title={giftDetails[`title_${lang.value}`]}
-            image={giftDetails.image}
-            lang={lang.value}
-            descriptionCyrillic={cyrillic}
-            descriptionLatin={latin}
-            bonus={giftDetails.bonus}
-          />
-        </>
+          <>
+            <TGGiftEditable
+              title={giftDetails[`title_${lang.value}`]}
+              lang={lang.value}
+              descriptionCyrillic={cyrillic}
+              descriptionLatin={latin}
+              images={giftDetails.image}
+              bonus={giftDetails.bonus}
+              handleImageChange={handleImageChange}
+              handleChangeTitle={handleTitleChange}
+              handelDescriptionChangeLatin={handelDescriptionChangeLatin}
+              handelDescriptionChangeCyrillic={handelDescriptionChangeCyrillic}
+              handleChangeBonus={handleChangeBonus}
+            />
+            <TGGiftPreview
+              title={giftDetails[`title_${lang.value}`]}
+              images={giftDetails.images}
+              lang={lang.value}
+              descriptionCyrillic={cyrillic}
+              descriptionLatin={latin}
+              bonus={giftDetails.bonus}
+            />
+          </>
         )}
-
       </WrapperStyled>
-      <Button outline onClick={() => history.push('/telegram-gifts')} label={labelConfig.cancel} />
+      <Button
+        outline
+        onClick={() => history.push("/telegram-gifts")}
+        label={labelConfig.cancel}
+      />
       <Button onClick={() => handleSave()} label={labelConfig.save} />
     </UpdateArticleContainer>
   );

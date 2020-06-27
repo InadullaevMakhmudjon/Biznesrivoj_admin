@@ -7,16 +7,16 @@ const initialState = {
 };
 
 const map = {
-  [`${actionTypes.GET_TG_SINGLE_GIFT}${actionTypes.PENDING}`]: (state) => ({
+  [`${actionTypes.GET_TG_SINGLE_BOOK}${actionTypes.PENDING}`]: (state) => ({
     ...state,
     loading: true,
     error: null,
   }),
-  [`${actionTypes.GET_TG_SINGLE_GIFT}${actionTypes.REJECTED}`]: (
+  [`${actionTypes.GET_TG_SINGLE_BOOK}${actionTypes.REJECTED}`]: (
     state,
     { payload }
   ) => ({ ...state, loading: false, error: payload }),
-  [`${actionTypes.GET_TG_SINGLE_GIFT}${actionTypes.FULFILLED}`]: (
+  [`${actionTypes.GET_TG_SINGLE_BOOK}${actionTypes.FULFILLED}`]: (
     state,
     { payload: { data } }
   ) => ({
@@ -25,12 +25,12 @@ const map = {
     data,
     error: null,
   }),
-  [`${actionTypes.UPDATE_TG_GIFT}${actionTypes.PENDING}`]: (state) => ({
+  [`${actionTypes.UPDATE_TG_BOOK}${actionTypes.PENDING}`]: (state) => ({
     ...state,
     loading: true,
     error: null,
   }),
-  [`${actionTypes.UPDATE_TG_GIFT}${actionTypes.FULFILLED}`]: (state) => ({
+  [`${actionTypes.UPDATE_TG_BOOK}${actionTypes.FULFILLED}`]: (state) => ({
     ...state,
     loading: false,
   }),

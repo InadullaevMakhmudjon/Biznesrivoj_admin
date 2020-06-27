@@ -9,7 +9,7 @@ import {
   DescriptionStyled,
 } from "./style";
 
-const TGGiftPreview = ({
+const TGBookPreview = ({
   title,
   images,
   description,
@@ -35,4 +35,4 @@ const TGGiftPreview = ({
   </TGPreviewContainer>
 );
 
-export default TGGiftPreview;
+export default TGBookPreview;

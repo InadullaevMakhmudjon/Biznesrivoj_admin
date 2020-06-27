@@ -4,39 +4,39 @@ import actionTypes from "../../../constants/actionTypes";
 
 import { getHeaders } from "../../../utils";
 
-export const getSingleGift = (giftId) => (dispatch, getState) => {
+export const getSingleBook = (bookId) => (dispatch, getState) => {
   const { token } = getState().auth;
   if (token) {
     dispatch({
-      type: actionTypes.GET_TG_SINGLE_GIFT,
+      type: actionTypes.GET_TG_SINGLE_BOOK,
       payload: axios({
         method: "GET",
-        url: `${API_URL}/api/telegram/gifts/${giftId}`,
+        url: `${API_URL}/api/telegram/books/${bookId}`,
         headers: getHeaders(getState),
       }),
     });
   }
 };
 
-export const updateGift = (gift, id) => (dispatch, getState) => {
+export const updateBook = (book, id) => (dispatch, getState) => {
   const { token } = getState().auth;
   if (token) {
     const response = dispatch({
-      type: actionTypes.UPDATE_TG_GIFT,
+      type: actionTypes.UPDATE_TG_BOOK,
       payload: axios({
         method: "POST",
-        url: `${API_URL}/api/telegram/gifts/${id}`,
+        url: `${API_URL}/api/telegram/books/${id}`,
         headers: getHeaders(getState),
-        data: gift,
+        data: book,
       }),
     });
 
     response.then(() => {
       dispatch({
-        type: actionTypes.GET_TG_SINGLE_GIFT,
+        type: actionTypes.GET_TG_SINGLE_BOOK,
         payload: axios({
           method: "GET",
-          url: `${API_URL}/api/telegram/gifts/${id}`,
+          url: `${API_URL}/api/telegram/books/${id}`,
           headers: getHeaders(getState),
         }),
       });

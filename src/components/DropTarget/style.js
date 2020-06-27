@@ -8,7 +8,8 @@ export const TargetContainer = styled.div`
     text-align: center;
     width: 100%;
     border-radius: 5px;
-
+    padding:5px;
+    overflow:auto;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -23,6 +24,9 @@ export const ImageStyled = styled.img`
     width:100%;
     height:100%;
     object-fit:contain;
+    max-width:200px;
+    max-height:200px;
+    margin-right:10px;
 `;
 
 export const InputWrapper = styled.div`
