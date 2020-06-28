@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from "react";
 
 import PreviewButton from "../components/PreviewButton";
@@ -8,6 +9,9 @@ export default [
     Header: "ID",
     accessor: "id",
     width: "5%",
+    Cell: ({ cell: { value } }) => (
+      <p style={{ textAlign: "center" }}>{value}</p>
+    ),
   },
   {
     Header: "Title",
@@ -24,8 +28,11 @@ export default [
   },
   {
     Header: "Bonus Point",
-    accessor: "bonus",
+    accessor: "point",
     width: "10%",
+    Cell: ({ cell: { value } }) => (
+      <p style={{ textAlign: "center" }}>{value}</p>
+    ),
   },
   {
     Header: "Preview",

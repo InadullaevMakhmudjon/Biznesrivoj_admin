@@ -13,13 +13,15 @@ const TGGiftPreview = ({
   title,
   images,
   description,
-  bonus,
+  point,
   descriptionCyrillic,
   descriptionLatin,
   lang,
 }) => (
   <TGPreviewContainer>
-    {images.map((image) => <ImageStyled src={image} alt="title" />)}
+    {images.map((image, index) => (
+      <ImageStyled key={image + index} src={image} alt="title" />
+    ))}
     <HeadingStyled>{title}</HeadingStyled>
     {lang === "uz" && (
       <DescriptionStyled
@@ -31,7 +33,7 @@ const TGGiftPreview = ({
         dangerouslySetInnerHTML={createMarkup(descriptionCyrillic)}
       />
     )}
-    <strong>{bonus}</strong>
+    <strong>{point}</strong>
   </TGPreviewContainer>
 );
 

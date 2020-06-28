@@ -42,7 +42,7 @@ const TGBookEdit = () => {
   const book = useSelector((state) => tgSingleBookSelector(state));
 
   useEffect(() => {
-    if (!book) {
+    if (bookId) {
       dispatch(getSingleBook(bookId));
     }
   }, [dispatch, bookId]);
@@ -64,7 +64,7 @@ const TGBookEdit = () => {
     const clone = _.cloneDeep(bookDetails);
     setBookDetails({
       ...clone,
-      images: [...bookDetails.images, url],
+      images: clone.images.concat(url),
     });
   };
 
@@ -88,15 +88,37 @@ const TGBookEdit = () => {
     const clone = _.cloneDeep(bookDetails);
     setBookDetails({
       ...clone,
-      bonus: e.target.value,
+      point: e.target.value,
+    });
+  };
+
+  const handleChangePrice = (e) => {
+    const clone = _.cloneDeep(bookDetails);
+    setBookDetails({
+      ...clone,
+      price: e.target.value,
     });
   };
 
   const handleSave = () => {
-    console.log(bookDetails, latin, cyrillic);
+    dispatch(
+      updateBook(
+        {
+          title_kr: bookDetails.title_kr,
+          title_lat: bookDetails.title_uz,
+          description_kr: cyrillic,
+          description_lat: latin,
+          images: bookDetails.images.map((image) => ({
+            url: image,
+          })),
+          point: bookDetails.point,
+          price: bookDetails.price,
+        },
+        bookDetails.id
+      )
+    );
   };
 
-  console.log(bookDetails, 'details');
   return (
     <UpdateArticleContainer>
       <HeadingStyled>Update TG Book</HeadingStyled>
@@ -122,12 +144,14 @@ const TGBookEdit = () => {
               descriptionCyrillic={cyrillic}
               descriptionLatin={latin}
               images={bookDetails.images}
-              bonus={bookDetails.bonus}
+              point={bookDetails.point}
+              price={bookDetails.price}
               handleImageChange={handleImageChange}
               handleChangeTitle={handleTitleChange}
               handelDescriptionChangeLatin={handelDescriptionChangeLatin}
               handelDescriptionChangeCyrillic={handelDescriptionChangeCyrillic}
               handleChangeBonus={handleChangeBonus}
+              handleChangePrice={handleChangePrice}
             />
             <TGBookPreview
               title={bookDetails[`title_${lang.value}`]}
@@ -135,7 +159,8 @@ const TGBookEdit = () => {
               lang={lang.value}
               descriptionCyrillic={cyrillic}
               descriptionLatin={latin}
-              bonus={bookDetails.bonus}
+              point={bookDetails.point}
+              price={bookDetails.price}
             />
           </>
         )}

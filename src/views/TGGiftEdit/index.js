@@ -88,7 +88,7 @@ const TGGiftEdit = () => {
     const clone = _.cloneDeep(giftDetails);
     setGiftDetails({
       ...clone,
-      bonus: e.target.value,
+      point: e.target.value,
     });
   };
 
@@ -100,11 +100,11 @@ const TGGiftEdit = () => {
           title_lat: giftDetails.title_uz,
           description_kr: cyrillic,
           description_lat: latin,
-          image: giftDetails.image,
-          bonus: giftDetails.bonus,
+          image: giftDetails.image[0],
+          point: giftDetails.point,
         },
-        giftDetails.id,
-      ),
+        giftDetails.id
+      )
     );
   };
 
@@ -132,7 +132,7 @@ const TGGiftEdit = () => {
               descriptionCyrillic={cyrillic}
               descriptionLatin={latin}
               images={giftDetails.image}
-              bonus={giftDetails.bonus}
+              point={giftDetails.point}
               handleImageChange={handleImageChange}
               handleChangeTitle={handleTitleChange}
               handelDescriptionChangeLatin={handelDescriptionChangeLatin}
@@ -141,11 +141,11 @@ const TGGiftEdit = () => {
             />
             <TGGiftPreview
               title={giftDetails[`title_${lang.value}`]}
-              images={giftDetails.images}
+              images={giftDetails.image}
               lang={lang.value}
               descriptionCyrillic={cyrillic}
               descriptionLatin={latin}
-              bonus={giftDetails.bonus}
+              point={giftDetails.point}
             />
           </>
         )}

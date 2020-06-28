@@ -12,14 +12,16 @@ import {
 const TGBookPreview = ({
   title,
   images,
-  description,
-  bonus,
+  point,
   descriptionCyrillic,
   descriptionLatin,
   lang,
+  price,
 }) => (
   <TGPreviewContainer>
-    {images.map((image) => <ImageStyled src={image} alt="title" />)}
+    {images.map((image, index) => (
+      <ImageStyled key={image + index} src={image} alt="title" />
+    ))}
     <HeadingStyled>{title}</HeadingStyled>
     {lang === "uz" && (
       <DescriptionStyled
@@ -31,7 +33,10 @@ const TGBookPreview = ({
         dangerouslySetInnerHTML={createMarkup(descriptionCyrillic)}
       />
     )}
-    <strong>{bonus}</strong>
+    <strong>{point}</strong>
+    <pre>
+      <strong>Narxi : {price}</strong>
+    </pre>
   </TGPreviewContainer>
 );
 
