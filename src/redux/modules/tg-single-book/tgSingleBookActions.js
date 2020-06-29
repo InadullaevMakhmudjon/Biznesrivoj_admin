@@ -43,3 +43,24 @@ export const updateBook = (book, id) => (dispatch, getState) => {
     });
   }
 };
+
+
+export const createTGBook = (book, history) => (dispatch, getState) => {
+  const { token } = getState().auth;
+
+  if (token) {
+    const response = dispatch({
+      type: actionTypes.CREATE_TG_BOOk,
+      payload: axios({
+        method: "POST",
+        url: `${API_URL}/api/telegram/books`,
+        headers: getHeaders(getState),
+        data: book,
+      }),
+    });
+
+    response.then(() => {
+      history.push('/telegram-books');
+    });
+  }
+};

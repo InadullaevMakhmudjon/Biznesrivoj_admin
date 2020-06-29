@@ -9,6 +9,7 @@ import tgSingleBook from "../modules/tg-single-book/tgSingleBookReducer";
 import tgGifts from "../modules/tg-gifts/tgGiftReducer";
 import tgSingleGift from "../modules/tg-single-gift/tgSingleGiftReducer";
 import tgUsers from "../modules/tg-users/tgUserReducer";
+import tgOrders from '../modules/tg-order-history/tgOrderHistoryReducer';
 
 export default combineReducers({
   auth,
@@ -21,4 +22,5 @@ export default combineReducers({
   tgGifts,
   tgSingleGift,
   tgUsers,
+  tgOrders,
 });

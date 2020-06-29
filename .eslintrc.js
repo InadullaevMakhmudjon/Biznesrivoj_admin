@@ -18,8 +18,8 @@ module.exports = {
   plugins: ["react"],
   rules: {
     "react/jsx-filename-extension": 0,
-    "linebreak-style": 0,
     "react/jsx-props-no-spreading": 0,
+    "import/prefer-default-export": "off",
     quotes: [0, "single", { avoidEscape: true }],
   },
 };

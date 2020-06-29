@@ -43,3 +43,24 @@ export const updateGift = (gift, id) => (dispatch, getState) => {
     });
   }
 };
+
+
+export const createTGGift = (gift, history) => (dispatch, getState) => {
+  const { token } = getState().auth;
+
+  if (token) {
+    const response = dispatch({
+      type: actionTypes.CREATE_TG_BOOK,
+      payload: axios({
+        method: "POST",
+        url: `${API_URL}/api/telegram/gifts`,
+        headers: getHeaders(getState),
+        data: gift,
+      }),
+    });
+
+    response.then(() => {
+      history.push('/telegram-gifts');
+    });
+  }
+};

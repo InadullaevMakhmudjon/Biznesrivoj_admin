@@ -20,45 +20,27 @@ import {
   isLoadingSingleBookSelector,
 } from "../../redux/selectors/booksSelector";
 import {
-  getSingleBook,
-  updateBook,
+  createTGBook,
 } from "../../redux/modules/tg-single-book/tgSingleBookActions";
 import TGBookEditable from "../../components/TGBookEditable";
 import TGBookPreview from "../../components/TGBookPreview";
 import Button from "../../components/Button";
 
-const TGBookEdit = () => {
-  const { bookId } = useParams();
+const TGBookCreate = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [lang, setLang] = useState(langOptions[0]);
 
-  const [bookDetails, setBookDetails] = useState(null);
+  const [bookDetails, setBookDetails] = useState({
+    title_kr: '',
+    title_uz: '',
+    images: [],
+    point: 0,
+    price: 0,
+  });
   const [cyrillic, setCyrillic] = useState("");
   const [latin, setLatin] = useState("");
 
-  const isLoading = useSelector((state) => isLoadingSingleBookSelector(state));
-
-  const book = useSelector((state) => tgSingleBookSelector(state));
-
-  useEffect(() => {
-    if (bookId) {
-      dispatch(getSingleBook(bookId));
-    }
-  }, [dispatch, bookId]);
-
-  useEffect(() => {
-    if (book) {
-      setBookDetails(book);
-      setCyrillic(book.description_kr);
-      setLatin(book.description_uz);
-      setLang(langOptions[0]);
-    }
-  }, [book]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   const handleImageChange = (url) => {
     const clone = _.cloneDeep(bookDetails);
@@ -102,7 +84,7 @@ const TGBookEdit = () => {
 
   const handleSave = () => {
     dispatch(
-      updateBook(
+      createTGBook(
         {
           title_kr: bookDetails.title_kr,
           title_lat: bookDetails.title_uz,
@@ -112,7 +94,7 @@ const TGBookEdit = () => {
           point: bookDetails.point,
           price: bookDetails.price,
         },
-        bookDetails.id,
+        history,
       ),
     );
   };
@@ -165,7 +147,7 @@ const TGBookEdit = () => {
       </WrapperStyled>
       <Button
         outline
-        onClick={() => history.push("/telegram-gifts")}
+        onClick={() => history.push("/telegram-books")}
         label={labelConfig.cancel}
       />
       <Button onClick={() => handleSave()} label={labelConfig.save} />
@@ -173,4 +155,4 @@ const TGBookEdit = () => {
   );
 };
 
-export default TGBookEdit;
+export default TGBookCreate;

@@ -1,25 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Table from "../../components/Table";
+import DataTable from '../../components/DataTable';
 
+import { getAllTGUsers } from "../../redux/modules/tg-users/tgUserActions";
 import {
   tgUsersSelector,
   isLoadingSelector,
 } from "../../redux/selectors/usersSelector";
 
-import Spinner from "../../components/Spinner";
-
-import { CloseIcon, SearchIcon } from "../../constants/icons";
-
 import tgUsersConfig from "../../config/tgUsersConfig";
-import {
-  TableWrapper,
-  TableHeaderWrapper,
-  TableActionsWrapper,
-  InputWrapper,
-  InputStyled,
-} from "./style";
-import { getAllTGUsers } from "../../redux/modules/tg-users/tgUserActions";
 
 const TGUsers = () => {
   const dispatch = useDispatch();
@@ -35,52 +24,16 @@ const TGUsers = () => {
     }
   }, [dispatch]);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-
   return (
-    <TableWrapper>
-      <TableHeaderWrapper>
-        <TableActionsWrapper isFocussed>
-          <InputWrapper>
-            <InputStyled
-              type="text"
-              search={searchValue}
-              value={searchValue}
-              isFocussed={isFocused}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => !searchValue.length && setIsFocused(false)}
-              onReset={() => {
-                searchValue("");
-                setIsFocused(false);
-              }}
-            />
-            {searchValue.length ? (
-              <span
-                onClick={() => {
-                  setSearchValue("");
-                  setIsFocused(false);
-                }}
-              >
-                <CloseIcon />
-              </span>
-            ) : (
-              <span
-                onClick={() => {
-                  setSearchValue("");
-                  setIsFocused(true);
-                }}
-              >
-                <SearchIcon />
-              </span>
-            )}
-          </InputWrapper>
-        </TableActionsWrapper>
-      </TableHeaderWrapper>
-      <Table columns={tgUsersConfig} data={users} />
-    </TableWrapper>
+    <DataTable
+      searchValue={searchValue}
+      setSearchValue={setSearchValue}
+      isFocused={isFocused}
+      setIsFocused={setIsFocused}
+      data={users}
+      columnConfig={tgUsersConfig}
+      isLoading={isLoading}
+    />
   );
 };
 

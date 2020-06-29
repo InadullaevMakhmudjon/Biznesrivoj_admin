@@ -5,7 +5,11 @@ import _ from "lodash";
 import langOptions from "../../config/langConfig";
 import labelConfig from "../../config/labelConfig";
 
-import Spinner from "../../components/Spinner";
+import { createTGGift } from "../../redux/modules/tg-single-gift/tgSingleGiftAction";
+
+import TGGiftPreview from "../../components/TGGIftPreview";
+import TGBookEditable from "../../components/TGBookEditable";
+import Button from "../../components/Button";
 
 import {
   UpdateArticleContainer,
@@ -15,62 +19,35 @@ import {
   LabelStyled,
   WrapperStyled,
 } from "./style";
-import {
-  tgSingleBookSelector,
-  isLoadingSingleBookSelector,
-} from "../../redux/selectors/booksSelector";
-import {
-  getSingleBook,
-  updateBook,
-} from "../../redux/modules/tg-single-book/tgSingleBookActions";
-import TGBookEditable from "../../components/TGBookEditable";
-import TGBookPreview from "../../components/TGBookPreview";
-import Button from "../../components/Button";
+import TGGiftEditable from "../../components/TGGiftEditable";
 
-const TGBookEdit = () => {
-  const { bookId } = useParams();
+const TGGiftCreate = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [lang, setLang] = useState(langOptions[0]);
 
-  const [bookDetails, setBookDetails] = useState(null);
+  const [giftDetails, setGiftDetails] = useState({
+    title_kr: '',
+    title_uz: '',
+    images: [],
+    point: 0,
+  });
   const [cyrillic, setCyrillic] = useState("");
   const [latin, setLatin] = useState("");
 
-  const isLoading = useSelector((state) => isLoadingSingleBookSelector(state));
-
-  const book = useSelector((state) => tgSingleBookSelector(state));
-
-  useEffect(() => {
-    if (bookId) {
-      dispatch(getSingleBook(bookId));
-    }
-  }, [dispatch, bookId]);
-
-  useEffect(() => {
-    if (book) {
-      setBookDetails(book);
-      setCyrillic(book.description_kr);
-      setLatin(book.description_uz);
-      setLang(langOptions[0]);
-    }
-  }, [book]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   const handleImageChange = (url) => {
-    const clone = _.cloneDeep(bookDetails);
-    setBookDetails({
+    const clone = _.cloneDeep(giftDetails);
+    console.log(url, 'urk');
+    setGiftDetails({
       ...clone,
-      images: clone.images.concat(url),
+      images: [url],
     });
   };
 
   const handleTitleChange = (e) => {
-    const clone = _.cloneDeep(bookDetails);
-    setBookDetails({
+    const clone = _.cloneDeep(giftDetails);
+    setGiftDetails({
       ...clone,
       [`title_${lang.value}`]: e.target.value,
     });
@@ -85,41 +62,36 @@ const TGBookEdit = () => {
   }
 
   const handleChangeBonus = (e) => {
-    const clone = _.cloneDeep(bookDetails);
-    setBookDetails({
+    const clone = _.cloneDeep(giftDetails);
+    setGiftDetails({
       ...clone,
       point: e.target.value,
     });
   };
 
-  const handleChangePrice = (e) => {
-    const clone = _.cloneDeep(bookDetails);
-    setBookDetails({
-      ...clone,
-      price: e.target.value,
-    });
-  };
 
   const handleSave = () => {
     dispatch(
-      updateBook(
+      createTGGift(
         {
-          title_kr: bookDetails.title_kr,
-          title_lat: bookDetails.title_uz,
+          title_kr: giftDetails.title_kr,
+          title_lat: giftDetails.title_uz,
           description_kr: cyrillic,
           description_lat: latin,
-          images: bookDetails.images,
-          point: bookDetails.point,
-          price: bookDetails.price,
+          image: giftDetails.images[0],
+          point: giftDetails.point,
+          price: giftDetails.price,
         },
-        bookDetails.id,
+        history,
       ),
     );
   };
 
+  console.log(giftDetails, 'details');
+
   return (
     <UpdateArticleContainer>
-      <HeadingStyled>Update TG Book</HeadingStyled>
+      <HeadingStyled>Create TG Gift</HeadingStyled>
       <SelectWrapper>
         <LabelStyled>Choose Lang</LabelStyled>
         <SelectStyled
@@ -134,31 +106,28 @@ const TGBookEdit = () => {
       </SelectWrapper>
 
       <WrapperStyled>
-        {bookDetails && (
+        {giftDetails && (
           <>
-            <TGBookEditable
-              title={bookDetails[`title_${lang.value}`]}
+            <TGGiftEditable
+              title={giftDetails[`title_${lang.value}`]}
               lang={lang.value}
               descriptionCyrillic={cyrillic}
               descriptionLatin={latin}
-              images={bookDetails.images}
-              point={bookDetails.point}
-              price={bookDetails.price}
+              images={giftDetails.images}
+              point={giftDetails.point}
               handleImageChange={handleImageChange}
               handleChangeTitle={handleTitleChange}
               handelDescriptionChangeLatin={handelDescriptionChangeLatin}
               handelDescriptionChangeCyrillic={handelDescriptionChangeCyrillic}
               handleChangeBonus={handleChangeBonus}
-              handleChangePrice={handleChangePrice}
             />
-            <TGBookPreview
-              title={bookDetails[`title_${lang.value}`]}
-              images={bookDetails.images}
+            <TGGiftPreview
+              title={giftDetails[`title_${lang.value}`]}
+              images={giftDetails.images}
               lang={lang.value}
               descriptionCyrillic={cyrillic}
               descriptionLatin={latin}
-              point={bookDetails.point}
-              price={bookDetails.price}
+              point={giftDetails.point}
             />
           </>
         )}
@@ -173,4 +142,4 @@ const TGBookEdit = () => {
   );
 };
 
-export default TGBookEdit;
+export default TGGiftCreate;
