@@ -10,32 +10,15 @@ const useStyle = makeStyles(style);
 const { FILE } = NativeTypes;
 
 const TargetBox = ({
-  canDrop, isOver, connectDropTarget, mainImage, main, images,
+  canDrop, isOver, connectDropTarget, image,
 }) => {
   const classes = useStyle();
   const isActive = canDrop && isOver;
   return connectDropTarget(
-    (main && mainImage) ? (
-      <div className={classes.box}>
-        <img className={classes.image} src={`http://${mainImage}`} alt="main" />
-      </div>
-    )
-      : (
-        <div className={classes.box} style={{ background: isActive ? 'rgba(156, 217, 107, 0.8)' : '' }}>
-          {
-            (mainImage && images.length) ? '' : (
-              <span>
-                {main ? 'Main image' : 'Storage'}
-                <br />
-                {`${isActive ? 'Release' : 'Drag and drop here'}`}
-              </span>
-            )
-          }
-          {
-            images.length ? <ImgesContainer images={images} /> : ''
-          }
-        </div>
-      ),
+    <div className={classes.box}>
+      {!isActive && !image && <img className={classes.image} src={`https://${image}`} alt="main" />}
+
+    </div>,
   );
 };
 

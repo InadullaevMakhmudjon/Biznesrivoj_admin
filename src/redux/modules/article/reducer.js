@@ -15,6 +15,11 @@ const map = {
   [`${types.GETALL}${status.FULFILLED}`]: (state, { payload: { data } }) => ({
     ...state, loading: false, total: data.total, articles: data.data, error: null,
   }),
+  [`${types.GET}${status.PENDING}`]: (state) => ({ ...state, loading: true, error: null }),
+  [`${types.GET}${status.REJECTED}`]: (state, { payload }) => ({ ...state, loading: false, error: payload }),
+  [`${types.GET}${status.FULFILLED}`]: (state, { payload: { data } }) => ({
+    ...state, loading: false, article: data, error: null,
+  }),
   [`${types.CREATE}${status.PENDING}`]: (state) => ({ ...state, loading: true, error: null }),
   [`${types.CREATE}${status.REJECTED}`]: (state, { payload }) => ({ ...state, loading: false, error: payload }),
   [`${types.CREATE}${status.FULFILLED}`]: (state) => ({ ...state, loading: false, error: null }),
@@ -22,6 +27,12 @@ const map = {
   [`${types.UPDATE}${status.PENDING}`]: (state) => ({ ...state, loading: true, error: null }),
   [`${types.UPDATE}${status.REJECTED}`]: (state, { payload }) => ({ ...state, loading: false, error: payload }),
   [`${types.UPDATE}${status.FULFILLED}`]: (state) => ({ ...state, loading: false, error: null }),
+
+  [`${types.DELETE}${status.PENDING}`]: (state) => ({ ...state, loading: true, error: null }),
+  [`${types.DELETE}${status.REJECTED}`]: (state, { payload }) => ({ ...state, loading: false, error: payload }),
+  [`${types.DELETE}${status.FULFILLED}`]: (state) => ({
+    ...state, loading: false, error: null, articles: [], article: null,
+  }),
 };
 
 // eslint-disable-next-line max-len

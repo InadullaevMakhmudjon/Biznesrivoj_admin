@@ -5,11 +5,11 @@ export default {
   item: {
     textDecoration: 'none',
     '&:hover,&:focus,&:visited,&': {
-      color: '#5E5E5E',
+      color: '#212529',
     },
   },
   paperContainer: {
-    width: '260px',
+    width: '150px',
     height: '100vh',
     padding: '10px',
   },
@@ -22,7 +22,7 @@ export default {
     borderColor: '#EBEDF2',
   },
   button: { margin: '10px' },
-  title: { color: '#5E5E5E' },
+  title: { color: '#212529' },
   conteiner: {
     display: 'flex',
     height: '120px',
@@ -32,10 +32,6 @@ export default {
     margin: '10px',
   },
   active: {
-    background: '#CDCDCD',
     transition: 'all 300ms linear',
-    '&:hover, &:focus': {
-      background: '#CDCDCD',
-    },
   },
 };

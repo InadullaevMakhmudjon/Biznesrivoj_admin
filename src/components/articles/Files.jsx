@@ -2,40 +2,46 @@ import React, { useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
 import PropTypes from 'prop-types';
-import TargetBox from './TargetBox';
+import DropTarget from '../DropTarget';
 import File from '../../api/Files';
 
-const Files = ({ main, setImage, image }) => {
-  const [images, setImages] = useState([]);
+const Files = ({
+  setImage, images,
+}) => {
+  const handleUpload = (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    File.upload(formData).then(({ data }) => {
+      setImage(data.url);
+    });
+  };
 
   const handleFileDrop = (item, monitor) => {
     if (monitor) {
-      const file = monitor.getItem().files;
-      const formData = new FormData();
-      formData.append('file', file[0]);
-      File.upload(formData).then(({ data }) => {
-        if (main) {
-          setImage(data.url);
-        } else setImages(images.concat(data.url));
-      });
+      const { files } = monitor.getItem();
+      files.map((file) => handleUpload(file));
     }
   };
 
+  const handleSelectFile = (e) => {
+    const { files } = e.target;
+    Object.entries(files).map(([key, value]) => handleUpload(value));
+  };
+
+
   return (
     <DndProvider backend={Backend}>
-      <TargetBox onDrop={handleFileDrop} mainImage={image} main={main} images={images} />
+      <DropTarget onDrop={handleFileDrop} handleSelectFile={handleSelectFile} images={images} />
     </DndProvider>
   );
 };
 
 Files.propTypes = {
-  main: PropTypes.bool,
   setImage: PropTypes.func,
   image: PropTypes.string,
 };
 
 Files.defaultProps = {
-  main: false,
   setImage: () => {},
   image: '',
 };

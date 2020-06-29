@@ -16,6 +16,8 @@ import { logout } from '../../redux/modules/auth/actions';
 import style from '../../assets/jss/components/sidebar';
 import elements from '../../utils/sidebar-elements';
 
+import BRLogo from '../../assets/images/logo_small.svg';
+
 const styles = makeStyles(style);
 
 export default () => {
@@ -24,47 +26,29 @@ export default () => {
   const history = useHistory();
   const user = useSelector(({ auth }) => auth.user) || {};
 
-  const isActive = (routeName) => (window.location.href.indexOf(routeName) > -1);
+  const isActive = (routeName) => window.location.href.indexOf(routeName) > -1;
 
   const links = (
     <List>
-      {
-        elements.map(({ path, name, Icon }) => (
-          <NavLink
-            key={`${path}${name}`}
-            to={path}
-            className={classes.item}
-          >
-            <ListItem
-              button
-              className={classNames(classes.itemLink, { [classes.active]: isActive(path) })}
-            >
-              <Icon />
-              <ListItemText disableTypography primary={name} className={classes.itemText} />
-            </ListItem>
-          </NavLink>
-        ))
-      }
+      {elements.map(({ path, name, Icon }) => (
+        <NavLink key={`${path}${name}`} to={path} className={classes.item}>
+          <ListItem button className={classNames(classes.itemLink, { [classes.active]: isActive(path) })}>
+            <Icon />
+            <ListItemText disableTypography primary={name} className={classes.itemText} />
+          </ListItem>
+        </NavLink>
+      ))}
     </List>
   );
 
   return (
-    <Drawer
-      anchor="left"
-      variant="permanent"
-      open
-    >
-      <Paper
-        elevation={0}
-        className={classes.paperContainer}
-      >
+    <Drawer anchor="left" variant="permanent" open>
+      <Paper elevation={0} className={classes.paperContainer}>
         <div className={classes.conteiner}>
-          <img
-            className={classes.image}
-            alt="User"
-            src={user.image}
-          />
-          <Typography align="center" className={classes.title} variant="h6">{user.fullName}</Typography>
+          <img className={classes.image} alt="User" src={BRLogo} />
+          <Typography align="center" className={classes.title} variant="h6">
+            {user.fullName}
+          </Typography>
         </div>
         <Divider />
         {links}
@@ -73,8 +57,8 @@ export default () => {
         variant="outlined"
         className={classes.button}
         onClick={() => {
-          history.push('/');
-          dispatch(logout());
+				  history.push('/');
+				  dispatch(logout());
         }}
       >
         Logout
