@@ -3,18 +3,10 @@ import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import langOptions from "../../config/langConfig";
-import labelConfig from "../../config/labelConfig";
 
 import Spinner from "../../components/Spinner";
+import EditableComponent from '../../components/EditableComponent';
 
-import {
-  UpdateArticleContainer,
-  HeadingStyled,
-  SelectStyled,
-  SelectWrapper,
-  LabelStyled,
-  WrapperStyled,
-} from "./style";
 import {
   tgSingleGiftSelector,
   isGiftLoadingSelector,
@@ -23,9 +15,7 @@ import {
   getSingleGift,
   updateGift,
 } from "../../redux/modules/tg-single-gift/tgSingleGiftAction";
-import TGGiftEditable from "../../components/TGGiftEditable";
-import TGGiftPreview from "../../components/TGGIftPreview";
-import Button from "../../components/Button";
+
 
 const TGGiftEdit = () => {
   const { giftId } = useParams();
@@ -64,7 +54,7 @@ const TGGiftEdit = () => {
     const clone = _.cloneDeep(giftDetails);
     setGiftDetails({
       ...clone,
-      image: [url],
+      images: [url],
     });
   };
 
@@ -100,7 +90,7 @@ const TGGiftEdit = () => {
           title_lat: giftDetails.title_uz,
           description_kr: cyrillic,
           description_lat: latin,
-          image: giftDetails.image[0],
+          image: giftDetails.images[0],
           point: giftDetails.point,
         },
         giftDetails.id,
@@ -108,55 +98,28 @@ const TGGiftEdit = () => {
     );
   };
 
-  return (
-    <UpdateArticleContainer>
-      <HeadingStyled>Update TG Gift</HeadingStyled>
-      <SelectWrapper>
-        <LabelStyled>Choose Lang</LabelStyled>
-        <SelectStyled
-          classNamePrefix="select"
-          defaultValue={langOptions[0]}
-          onChange={(e) => setLang(e)}
-          isClearable={false}
-          name="lang"
-          options={langOptions}
-        />
-      </SelectWrapper>
+  const handleCancel = () => {
+    history.push("/telegram-gifts");
+  };
 
-      <WrapperStyled>
-        {giftDetails && (
-          <>
-            <TGGiftEditable
-              title={giftDetails[`title_${lang.value}`]}
-              lang={lang.value}
-              descriptionCyrillic={cyrillic}
-              descriptionLatin={latin}
-              images={giftDetails.image}
-              point={giftDetails.point}
-              handleImageChange={handleImageChange}
-              handleChangeTitle={handleTitleChange}
-              handleDescriptionChangeLatin={handleDescriptionChangeLatin}
-              handleDescriptionChangeCyrillic={handleDescriptionChangeCyrillic}
-              handleChangeBonus={handleChangeBonus}
-            />
-            <TGGiftPreview
-              title={giftDetails[`title_${lang.value}`]}
-              images={giftDetails.image}
-              lang={lang.value}
-              descriptionCyrillic={cyrillic}
-              descriptionLatin={latin}
-              point={giftDetails.point}
-            />
-          </>
-        )}
-      </WrapperStyled>
-      <Button
-        outline
-        onClick={() => history.push("/telegram-gifts")}
-        label={labelConfig.cancel}
-      />
-      <Button onClick={() => handleSave()} label={labelConfig.save} />
-    </UpdateArticleContainer>
+
+  return (
+    <EditableComponent
+      pageTitle="TG Book Update"
+      defaultLang={langOptions[0]}
+      details={giftDetails}
+      latin={latin}
+      cyrillic={cyrillic}
+      lang={lang}
+      setLang={setLang}
+      handleImageChange={handleImageChange}
+      handleTitleChange={handleTitleChange}
+      handleDescriptionChangeCyrillic={handleDescriptionChangeCyrillic}
+      handleDescriptionChangeLatin={handleDescriptionChangeLatin}
+      handleChangeBonus={handleChangeBonus}
+      handleSave={handleSave}
+      handleCancel={handleCancel}
+    />
   );
 };
 

@@ -101,7 +101,7 @@ DataTable.propTypes = {
   data: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
   columnConfig: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
   isLoading: PropTypes.bool,
-  history: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
+  history: PropTypes.objectOf(PropTypes.any),
   createPath: PropTypes.string,
 };
 

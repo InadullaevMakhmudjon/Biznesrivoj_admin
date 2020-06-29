@@ -6,6 +6,7 @@ import langOptions from "../../config/langConfig";
 import labelConfig from "../../config/labelConfig";
 
 import Spinner from "../../components/Spinner";
+import EditableComponent from '../../components/EditableComponent';
 
 import {
   UpdateArticleContainer,
@@ -117,59 +118,28 @@ const TGBookEdit = () => {
     );
   };
 
-  return (
-    <UpdateArticleContainer>
-      <HeadingStyled>Update TG Book</HeadingStyled>
-      <SelectWrapper>
-        <LabelStyled>Choose Lang</LabelStyled>
-        <SelectStyled
-          className="basic-single"
-          classNamePrefix="select"
-          defaultValue={langOptions[0]}
-          onChange={(e) => setLang(e)}
-          isClearable={false}
-          name="lang"
-          options={langOptions}
-        />
-      </SelectWrapper>
+  const handleCancel = () => {
+    history.push("/telegram-gifts");
+  };
 
-      <WrapperStyled>
-        {bookDetails && (
-          <>
-            <TGBookEditable
-              title={bookDetails[`title_${lang.value}`]}
-              lang={lang.value}
-              descriptionCyrillic={cyrillic}
-              descriptionLatin={latin}
-              images={bookDetails.images}
-              point={bookDetails.point}
-              price={bookDetails.price}
-              handleImageChange={handleImageChange}
-              handleChangeTitle={handleTitleChange}
-              handleDescriptionChangeLatin={handleDescriptionChangeLatin}
-              handleDescriptionChangeCyrillic={handleDescriptionChangeCyrillic}
-              handleChangeBonus={handleChangeBonus}
-              handleChangePrice={handleChangePrice}
-            />
-            <TGBookPreview
-              title={bookDetails[`title_${lang.value}`]}
-              images={bookDetails.images}
-              lang={lang.value}
-              descriptionCyrillic={cyrillic}
-              descriptionLatin={latin}
-              point={bookDetails.point}
-              price={bookDetails.price}
-            />
-          </>
-        )}
-      </WrapperStyled>
-      <Button
-        outline
-        onClick={() => history.push("/telegram-gifts")}
-        label={labelConfig.cancel}
-      />
-      <Button onClick={() => handleSave()} label={labelConfig.save} />
-    </UpdateArticleContainer>
+  return (
+    <EditableComponent
+      pageTitle="TG Book Update"
+      defaultLang={langOptions[0]}
+      details={bookDetails}
+      latin={latin}
+      cyrillic={cyrillic}
+      lang={lang}
+      setLang={setLang}
+      handleImageChange={handleImageChange}
+      handleTitleChange={handleTitleChange}
+      handleDescriptionChangeCyrillic={handleDescriptionChangeCyrillic}
+      handleDescriptionChangeLatin={handleDescriptionChangeLatin}
+      handleChangeBonus={handleChangeBonus}
+      handleChangePrice={handleChangePrice}
+      handleSave={handleSave}
+      handleCancel={handleCancel}
+    />
   );
 };
 

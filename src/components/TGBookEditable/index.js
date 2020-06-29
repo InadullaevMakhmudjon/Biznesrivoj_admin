@@ -64,6 +64,7 @@ const TGBookEditable = ({
         onChange={(e) => handleChangeBonus(e)}
       />
     </InputWrapper>
+    {price && (
     <InputWrapper>
       <LabelStyled>{labelConfig.price}</LabelStyled>
       <InputStyled
@@ -72,6 +73,7 @@ const TGBookEditable = ({
         onChange={(e) => handleChangePrice(e)}
       />
     </InputWrapper>
+    )}
   </EditContainer>
 );
 
