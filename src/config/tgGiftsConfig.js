@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-danger */
 import React from "react";
 
@@ -15,12 +16,12 @@ export default [
   },
   {
     Header: "Title",
-    accessor: "title_kr",
+    accessor: "title_uz",
     width: "10%",
   },
   {
     Header: "Description",
-    accessor: "description_kr",
+    accessor: "description_uz",
     width: "40%",
     Cell: ({ cell: { value } }) => (
       <div dangerouslySetInnerHTML={createMarkup(value)} />

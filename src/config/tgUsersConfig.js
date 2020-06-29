@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 
 export default [
@@ -6,7 +7,7 @@ export default [
     accessor: "id",
   },
   {
-    Header: "Firt Name",
+    Header: "First Name",
     accessor: "firstName",
   },
   {

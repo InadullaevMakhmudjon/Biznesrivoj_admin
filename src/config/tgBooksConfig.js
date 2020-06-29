@@ -12,12 +12,12 @@ export default [
   },
   {
     Header: 'Title',
-    accessor: 'title_kr',
+    accessor: 'title_uz',
     width: '10%',
   },
   {
     Header: 'Description',
-    accessor: 'description_kr',
+    accessor: 'description_uz',
     width: '35%',
     Cell: ({ cell: { value } }) => (
       <div dangerouslySetInnerHTML={createMarkup(value)} />
