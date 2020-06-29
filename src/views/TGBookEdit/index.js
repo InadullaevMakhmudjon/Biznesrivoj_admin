@@ -76,11 +76,11 @@ const TGBookEdit = () => {
     });
   };
 
-  function handelDescriptionChangeCyrillic(e) {
+  function handleDescriptionChangeCyrillic(e) {
     setCyrillic(e);
   }
 
-  function handelDescriptionChangeLatin(e) {
+  function handleDescriptionChangeLatin(e) {
     setLatin(e);
   }
 
@@ -146,8 +146,8 @@ const TGBookEdit = () => {
               price={bookDetails.price}
               handleImageChange={handleImageChange}
               handleChangeTitle={handleTitleChange}
-              handelDescriptionChangeLatin={handelDescriptionChangeLatin}
-              handelDescriptionChangeCyrillic={handelDescriptionChangeCyrillic}
+              handleDescriptionChangeLatin={handleDescriptionChangeLatin}
+              handleDescriptionChangeCyrillic={handleDescriptionChangeCyrillic}
               handleChangeBonus={handleChangeBonus}
               handleChangePrice={handleChangePrice}
             />

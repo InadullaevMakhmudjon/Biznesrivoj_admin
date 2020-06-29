@@ -76,11 +76,11 @@ const TGGiftEdit = () => {
     });
   };
 
-  function handelDescriptionChangeCyrillic(e) {
+  function handleDescriptionChangeCyrillic(e) {
     setCyrillic(e);
   }
 
-  function handelDescriptionChangeLatin(e) {
+  function handleDescriptionChangeLatin(e) {
     setLatin(e);
   }
 
@@ -103,8 +103,8 @@ const TGGiftEdit = () => {
           image: giftDetails.image[0],
           point: giftDetails.point,
         },
-        giftDetails.id
-      )
+        giftDetails.id,
+      ),
     );
   };
 
@@ -135,8 +135,8 @@ const TGGiftEdit = () => {
               point={giftDetails.point}
               handleImageChange={handleImageChange}
               handleChangeTitle={handleTitleChange}
-              handelDescriptionChangeLatin={handelDescriptionChangeLatin}
-              handelDescriptionChangeCyrillic={handelDescriptionChangeCyrillic}
+              handleDescriptionChangeLatin={handleDescriptionChangeLatin}
+              handleDescriptionChangeCyrillic={handleDescriptionChangeCyrillic}
               handleChangeBonus={handleChangeBonus}
             />
             <TGGiftPreview

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -8,13 +9,16 @@ import {
   useSortBy,
   useExpanded,
   useRowSelect,
+  useGlobalFilter,
 } from 'react-table';
 
 import Pagination from '../Pagination';
 
 import { TableContainer, TableHeaderStyled } from './style';
 
-const Table = ({ columns, data, handleRowClick }) => {
+const Table = ({
+  columns, data, handleRowClick, searchValue,
+}) => {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -30,8 +34,9 @@ const Table = ({ columns, data, handleRowClick }) => {
     nextPage,
     previousPage,
     setPageSize,
+    setGlobalFilter,
     state: {
-      pageIndex, pageSize, sortBy, groupBy, expanded, filters,
+      pageIndex, pageSize,
     },
   } = useTable(
     {
@@ -43,11 +48,16 @@ const Table = ({ columns, data, handleRowClick }) => {
     },
     useFilters,
     useGroupBy,
+    useGlobalFilter,
     useSortBy,
+    useRowSelect,
     useExpanded,
     usePagination,
-    useRowSelect,
   );
+
+  useEffect(() => {
+    setGlobalFilter(searchValue || '');
+  }, [searchValue]);
   return (
     <TableContainer>
       <table {...getTableProps()}>
@@ -106,12 +116,14 @@ Table.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
   data: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
   handleRowClick: PropTypes.func,
+  searchValue: PropTypes.string,
 };
 
 Table.defaultProps = {
   columns: [],
   data: [],
   handleRowClick: () => {},
+  searchValue: '',
 };
 
 export default Table;

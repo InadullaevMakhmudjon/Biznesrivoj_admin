@@ -1,7 +1,5 @@
 import React from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-
+import PropTypes from 'prop-types';
 import Files from "../articles/Files";
 
 import labelConfig from "../../config/labelConfig";
@@ -16,7 +14,6 @@ import {
 
 const TGGiftEditable = ({
   title,
-  handleChangeDescription,
   handleChangeTitle,
   images,
   handleImageChange,
@@ -25,8 +22,8 @@ const TGGiftEditable = ({
   lang,
   descriptionCyrillic,
   descriptionLatin,
-  handelDescriptionChangeCyrillic,
-  handelDescriptionChangeLatin,
+  handleDescriptionChangeCyrillic,
+  handleDescriptionChangeLatin,
 }) => (
   <EditContainer>
     <InputWrapper>
@@ -42,20 +39,18 @@ const TGGiftEditable = ({
     <InputWrapper>
       <LabelStyled>{labelConfig.desc}</LabelStyled>
       {lang === "uz" && (
-        <ReactQuill
+        <TextAreaStyled
           id="latin"
-          theme="snow"
           value={descriptionLatin}
-          onChange={(e) => handelDescriptionChangeLatin(e)}
+          onChange={(e) => handleDescriptionChangeLatin(e.target.value)}
         />
       )}
 
       {lang === "kr" && (
-        <ReactQuill
+        <TextAreaStyled
           id="cyrillic"
-          theme="snow"
           value={descriptionCyrillic}
-          onChange={(e) => handelDescriptionChangeCyrillic(e)}
+          onChange={(e) => handleDescriptionChangeCyrillic(e.target.value)}
         />
       )}
     </InputWrapper>
@@ -69,5 +64,33 @@ const TGGiftEditable = ({
     </InputWrapper>
   </EditContainer>
 );
+
+TGGiftEditable.defaultProps = {
+  title: '',
+  handleChangeTitle: () => {},
+  images: [],
+  handleImageChange: () => {},
+  point: 0,
+  handleChangeBonus: () => {},
+  lang: 'uz',
+  descriptionCyrillic: '',
+  descriptionLatin: '',
+  handleDescriptionChangeCyrillic: () => {},
+  handleDescriptionChangeLatin: () => {},
+};
+
+TGGiftEditable.propTypes = {
+  title: PropTypes.string,
+  handleChangeTitle: PropTypes.func,
+  images: PropTypes.arrayOf(PropTypes.any),
+  handleImageChange: PropTypes.func,
+  point: PropTypes.number,
+  handleChangeBonus: PropTypes.func,
+  lang: PropTypes.string,
+  descriptionCyrillic: PropTypes.string,
+  descriptionLatin: PropTypes.string,
+  handleDescriptionChangeCyrillic: PropTypes.func,
+  handleDescriptionChangeLatin: PropTypes.func,
+};
 
 export default TGGiftEditable;

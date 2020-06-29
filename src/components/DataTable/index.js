@@ -76,7 +76,7 @@ const DataTable = ({
         </AddButtonStyled>
         )}
       </TableHeaderWrapper>
-      <Table columns={columnConfig} data={data} />
+      <Table columns={columnConfig} data={data} searchValue={searchValue} />
     </TableWrapper>
   );
 };
