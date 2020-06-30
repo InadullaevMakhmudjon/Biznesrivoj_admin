@@ -24,12 +24,12 @@ const TargetBox = ({
   return connectDropTarget(
     <div>
       <TargetContainer isActive={isActive}>
-        {!isActive &&
-          images.length &&
-          images.map((image, index) => (
+        {!isActive
+          && !!images.length
+          && images.map((image, index) => (
             <ImageStyled key={image + index} src={image} alt="main" />
           ))}
-        {(isActive || !images) && <p>Drag and Drop the images</p>}
+        {(isActive || !images.length) && <p>Drag and Drop the images</p>}
       </TargetContainer>
       <InputWrapper>
         <LabelStyled>Insert image</LabelStyled>
@@ -40,7 +40,7 @@ const TargetBox = ({
           onChange={handleSelectFile}
         />
       </InputWrapper>
-    </div>
+    </div>,
   );
 };
 
@@ -57,5 +57,5 @@ export default DropTarget(
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
     canDrop: monitor.canDrop(),
-  })
+  }),
 )(TargetBox);
