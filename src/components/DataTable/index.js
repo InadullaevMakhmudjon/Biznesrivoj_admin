@@ -70,7 +70,7 @@ const DataTable = ({
             )}
           </InputWrapper>
         </TableActionsWrapper>
-        {createPath.length && (
+        {!!createPath.length && (
         <AddButtonStyled type="button" onClick={() => history.push(createPath)}>
           +
         </AddButtonStyled>

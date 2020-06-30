@@ -64,7 +64,7 @@ const TGBookEditable = ({
         onChange={(e) => handleChangeBonus(e)}
       />
     </InputWrapper>
-    {price && (
+    {price !== undefined && (
     <InputWrapper>
       <LabelStyled>{labelConfig.price}</LabelStyled>
       <InputStyled
@@ -84,7 +84,7 @@ TGBookEditable.defaultProps = {
   images: [],
   handleImageChange: () => {},
   point: 0,
-  price: 0,
+  price: undefined,
   handleChangePrice: () => {},
   handleChangeBonus: () => {},
   lang: 'uz',

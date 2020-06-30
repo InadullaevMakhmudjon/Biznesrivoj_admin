@@ -34,7 +34,7 @@ const TGBooks = () => {
       columnConfig={booksConfig}
       isLoading={isLoading}
       history={history}
-      createPath="/telegram-books-create"
+      createPath="/telegram-book-create"
     />
   );
 };
