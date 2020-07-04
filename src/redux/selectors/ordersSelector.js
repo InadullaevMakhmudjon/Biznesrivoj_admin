@@ -7,7 +7,7 @@ export const isLoading = (state) => state.tgOrders.loading;
 
 const createFormattedOrders = (item) => ({
   id: item.id,
-  createdAt: moment(item.createdAt).format("MMM Do YYYY, h:mm"),
+  createdAt: moment(item.createdAt).format("MMM Do YYYY, hh:mm"),
   userId: item.user.id || '',
   username: item.user.username ? `@${item.user.username}` : "",
   phoneNumber: item.user.phone_number || '',
