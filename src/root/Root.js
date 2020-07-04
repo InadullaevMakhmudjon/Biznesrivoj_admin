@@ -17,7 +17,8 @@ import TGGifts from "../views/TGGifts";
 import TGGiftEdit from "../views/TGGiftEdit";
 import TGBookEdit from "../views/TGBookEdit";
 import TGUsers from "../views/TGUsers";
-import TGOrderHistory from "../views/TGOrderHistory.js";
+import TGOrderHistory from "../views/TGOrderHistory";
+import TGOrder from '../views/TGOrder'
 import TGBookCreate from "../views/CreateTGBook";
 import TGGiftCreate from '../views/CreateTGGift';
 
@@ -40,6 +41,7 @@ export default () => {
           <Route exact path="/telegram-gifts/:giftId" component={TGGiftEdit} />
           <Route exact path="/telegram-users" component={TGUsers} />
           <Route exact path="/telegram-orders" component={TGOrderHistory} />
+          <Route exact path='/telegram-orders/:id' component={TGOrder}/>
           <Route exact path="/users" component={Users} />
           <Redirect from="/" to="/articles" />
         </Switch>

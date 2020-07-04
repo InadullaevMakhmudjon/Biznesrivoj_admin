@@ -3,19 +3,11 @@ import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import langOptions from "../../config/langConfig";
-import labelConfig from "../../config/labelConfig";
+import { deliveryOptions } from '../../config/tgConfigs';
 
 import Spinner from "../../components/Spinner";
 import EditableComponent from '../../components/EditableComponent';
 
-import {
-  UpdateArticleContainer,
-  HeadingStyled,
-  SelectStyled,
-  SelectWrapper,
-  LabelStyled,
-  WrapperStyled,
-} from "./style";
 import {
   tgSingleBookSelector,
   isLoadingSingleBookSelector,
@@ -24,15 +16,13 @@ import {
   getSingleBook,
   updateBook,
 } from "../../redux/modules/tg-single-book/tgSingleBookActions";
-import TGBookEditable from "../../components/TGBookEditable";
-import TGBookPreview from "../../components/TGBookPreview";
-import Button from "../../components/Button";
 
 const TGBookEdit = () => {
   const { bookId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   const [lang, setLang] = useState(langOptions[0]);
+  const [deliveryType, setDeliveryType] = useState(deliveryOptions[0]);
 
   const [bookDetails, setBookDetails] = useState(null);
   const [cyrillic, setCyrillic] = useState("");
@@ -48,12 +38,14 @@ const TGBookEdit = () => {
     }
   }, [dispatch, bookId]);
 
+
   useEffect(() => {
     if (book) {
       setBookDetails(book);
       setCyrillic(book.description_kr);
       setLatin(book.description_uz);
       setLang(langOptions[0]);
+      setDeliveryType(deliveryOptions.filter((item) => item.value === book.deliveryTypeId));
     }
   }, [book]);
 
@@ -112,6 +104,7 @@ const TGBookEdit = () => {
           images: bookDetails.images,
           point: bookDetails.point,
           price: bookDetails.price,
+          deliveryTypeId: deliveryType.value,
         },
         bookDetails.id,
       ),
@@ -121,16 +114,18 @@ const TGBookEdit = () => {
   const handleCancel = () => {
     history.push("/telegram-gifts");
   };
-
   return (
     <EditableComponent
       pageTitle="TG Book Update"
       defaultLang={langOptions[0]}
+      langOptions={langOptions}
       details={bookDetails}
       latin={latin}
       cyrillic={cyrillic}
       lang={lang}
       setLang={setLang}
+      deliveryType={deliveryType}
+      setDeliveryType={setDeliveryType}
       handleImageChange={handleImageChange}
       handleTitleChange={handleTitleChange}
       handleDescriptionChangeCyrillic={handleDescriptionChangeCyrillic}

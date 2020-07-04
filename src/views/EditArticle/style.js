@@ -5,9 +5,8 @@ export const UpdateArticleContainer = styled.div`
     border-radius: 4px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
-    margin: 10px;
-    padding: 10px 10px 10px 10px;
-    max-width:1440px;
+    padding: 10px 20px;
+    max-width:800px;
     margin:auto;
     
 `;

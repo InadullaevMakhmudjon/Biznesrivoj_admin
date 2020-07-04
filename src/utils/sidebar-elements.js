@@ -8,7 +8,7 @@ import Users from "../views/users/Users";
 import TGGifts from "../views/TGGifts";
 import TGBooks from "../views/TGBooks";
 import TGUsers from "../views/TGUsers";
-import TGOrderHistory from "../views/TGOrderHistory.js";
+import TGOrderHistory from "../views/TGOrderHistory/index.js";
 
 export default [
   {

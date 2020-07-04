@@ -64,3 +64,16 @@ export const createTGBook = (book, history) => (dispatch, getState) => {
     });
   }
 };
+
+
+export const getDeliveryTypes = () => (dispatch, getState) => {
+  dispatch({
+    type: actionTypes.CREATE_TG_BOOk,
+    payload: axios({
+      method: "GET",
+      url: `${API_URL}/api/telegram/deliveryTypes`,
+      headers: getHeaders(getState),
+
+    }),
+  });
+};

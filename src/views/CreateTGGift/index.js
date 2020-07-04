@@ -7,8 +7,7 @@ import labelConfig from "../../config/labelConfig";
 
 import { createTGGift } from "../../redux/modules/tg-single-gift/tgSingleGiftAction";
 
-import TGGiftPreview from "../../components/TGGIftPreview";
-import TGBookEditable from "../../components/TGBookEditable";
+import TGGiftEditable from "../../components/TGGiftEditable";
 import Button from "../../components/Button";
 
 import {
@@ -19,7 +18,7 @@ import {
   LabelStyled,
   WrapperStyled,
 } from "./style";
-import TGGiftEditable from "../../components/TGGiftEditable";
+
 
 const TGGiftCreate = () => {
   const history = useHistory();
@@ -38,7 +37,6 @@ const TGGiftCreate = () => {
 
   const handleImageChange = (url) => {
     const clone = _.cloneDeep(giftDetails);
-    console.log(url, 'urk');
     setGiftDetails({
       ...clone,
       images: [url],
@@ -53,11 +51,11 @@ const TGGiftCreate = () => {
     });
   };
 
-  function handelDescriptionChangeCyrillic(e) {
+  function handleDescriptionChangeCyrillic(e) {
     setCyrillic(e);
   }
 
-  function handelDescriptionChangeLatin(e) {
+  function handleDescriptionChangeLatin(e) {
     setLatin(e);
   }
 
@@ -87,7 +85,6 @@ const TGGiftCreate = () => {
     );
   };
 
-  console.log(giftDetails, 'details');
 
   return (
     <UpdateArticleContainer>
@@ -107,29 +104,19 @@ const TGGiftCreate = () => {
 
       <WrapperStyled>
         {giftDetails && (
-          <>
-            <TGGiftEditable
-              title={giftDetails[`title_${lang.value}`]}
-              lang={lang.value}
-              descriptionCyrillic={cyrillic}
-              descriptionLatin={latin}
-              images={giftDetails.images}
-              point={giftDetails.point}
-              handleImageChange={handleImageChange}
-              handleChangeTitle={handleTitleChange}
-              handelDescriptionChangeLatin={handelDescriptionChangeLatin}
-              handelDescriptionChangeCyrillic={handelDescriptionChangeCyrillic}
-              handleChangeBonus={handleChangeBonus}
-            />
-            <TGGiftPreview
-              title={giftDetails[`title_${lang.value}`]}
-              images={giftDetails.images}
-              lang={lang.value}
-              descriptionCyrillic={cyrillic}
-              descriptionLatin={latin}
-              point={giftDetails.point}
-            />
-          </>
+        <TGGiftEditable
+          title={giftDetails[`title_${lang.value}`]}
+          lang={lang.value}
+          descriptionCyrillic={cyrillic}
+          descriptionLatin={latin}
+          images={giftDetails.images}
+          point={giftDetails.point}
+          handleImageChange={handleImageChange}
+          handleChangeTitle={handleTitleChange}
+          handleDescriptionChangeLatin={handleDescriptionChangeLatin}
+          handleDescriptionChangeCyrillic={handleDescriptionChangeCyrillic}
+          handleChangeBonus={handleChangeBonus}
+        />
         )}
       </WrapperStyled>
       <Button

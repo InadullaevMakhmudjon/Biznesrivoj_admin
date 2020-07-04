@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import Select from 'react-select';
 
 export const EditContainer = styled.div`
   display: flex;
@@ -62,4 +63,16 @@ export const ImageStyled = styled.img`
 
 export const ImageInputStyled = styled.input`
   
+`;
+
+
+export const SelectWrapper = styled.div`
+    display:flex;
+    align-items:baseline;
+
+`;
+
+export const SelectStyled = styled(Select)`
+    width:120px;
+    margin-left:10px;
 `;

@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import _ from "lodash";
+import {
+  createTGBook,
+} from "../../redux/modules/tg-single-book/tgSingleBookActions";
+import TGBookEditable from "../../components/TGBookEditable";
+import Button from "../../components/Button";
 import langOptions from "../../config/langConfig";
 import labelConfig from "../../config/labelConfig";
-
-import Spinner from "../../components/Spinner";
+import { deliveryOptions } from '../../config/tgConfigs';
 
 import {
   UpdateArticleContainer,
@@ -15,21 +19,13 @@ import {
   LabelStyled,
   WrapperStyled,
 } from "./style";
-import {
-  tgSingleBookSelector,
-  isLoadingSingleBookSelector,
-} from "../../redux/selectors/booksSelector";
-import {
-  createTGBook,
-} from "../../redux/modules/tg-single-book/tgSingleBookActions";
-import TGBookEditable from "../../components/TGBookEditable";
-import TGBookPreview from "../../components/TGBookPreview";
-import Button from "../../components/Button";
+
 
 const TGBookCreate = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [lang, setLang] = useState(langOptions[0]);
+  const [deliveryType, setDeliveryType] = useState(deliveryOptions[0]);
 
   const [bookDetails, setBookDetails] = useState({
     title_kr: '',
@@ -58,11 +54,11 @@ const TGBookCreate = () => {
     });
   };
 
-  function handelDescriptionChangeCyrillic(e) {
+  function handleDescriptionChangeCyrillic(e) {
     setCyrillic(e);
   }
 
-  function handelDescriptionChangeLatin(e) {
+  function handleDescriptionChangeLatin(e) {
     setLatin(e);
   }
 
@@ -93,6 +89,7 @@ const TGBookCreate = () => {
           images: bookDetails.images,
           point: bookDetails.point,
           price: bookDetails.price,
+          deliveryTypeId: deliveryType.value,
         },
         history,
       ),
@@ -101,7 +98,7 @@ const TGBookCreate = () => {
 
   return (
     <UpdateArticleContainer>
-      <HeadingStyled>Update TG Book</HeadingStyled>
+      <HeadingStyled>Create TG Book</HeadingStyled>
       <SelectWrapper>
         <LabelStyled>Choose Lang</LabelStyled>
         <SelectStyled
@@ -117,32 +114,23 @@ const TGBookCreate = () => {
 
       <WrapperStyled>
         {bookDetails && (
-          <>
-            <TGBookEditable
-              title={bookDetails[`title_${lang.value}`]}
-              lang={lang.value}
-              descriptionCyrillic={cyrillic}
-              descriptionLatin={latin}
-              images={bookDetails.images}
-              point={bookDetails.point}
-              price={bookDetails.price}
-              handleImageChange={handleImageChange}
-              handleChangeTitle={handleTitleChange}
-              handelDescriptionChangeLatin={handelDescriptionChangeLatin}
-              handelDescriptionChangeCyrillic={handelDescriptionChangeCyrillic}
-              handleChangeBonus={handleChangeBonus}
-              handleChangePrice={handleChangePrice}
-            />
-            <TGBookPreview
-              title={bookDetails[`title_${lang.value}`]}
-              images={bookDetails.images}
-              lang={lang.value}
-              descriptionCyrillic={cyrillic}
-              descriptionLatin={latin}
-              point={bookDetails.point}
-              price={bookDetails.price}
-            />
-          </>
+        <TGBookEditable
+          title={bookDetails[`title_${lang.value}`]}
+          lang={lang.value}
+          descriptionCyrillic={cyrillic}
+          descriptionLatin={latin}
+          images={bookDetails.images}
+          point={bookDetails.point}
+          price={bookDetails.price}
+          deliveryType={deliveryType}
+          setDeliveryType={setDeliveryType}
+          handleImageChange={handleImageChange}
+          handleChangeTitle={handleTitleChange}
+          handleDescriptionChangeLatin={handleDescriptionChangeLatin}
+          handleDescriptionChangeCyrillic={handleDescriptionChangeCyrillic}
+          handleChangeBonus={handleChangeBonus}
+          handleChangePrice={handleChangePrice}
+        />
         )}
       </WrapperStyled>
       <Button
