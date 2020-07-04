@@ -10,15 +10,14 @@ const createFormattedUsers = (item) => ({
   firstName: item.first_name || "",
   lastName: item.last_name || "",
   username: item.username ? `@${item.username}` : "",
+  phoneNumber: item.phone_number,
   point: item.point.value,
   createdAt: moment(item.createdAt).format("MMM Do YYYY"),
 });
 
-export const tgUsersSelector = createSelector(tgUsersList, (users) =>
-  users ? users.map(createFormattedUsers) : []
-);
+export const tgUsersSelector = createSelector(tgUsersList, (users) => (users ? users.map(createFormattedUsers) : []));
 
 export const isLoadingSelector = createSelector(
   isLoading,
-  (loading) => loading
+  (loading) => loading,
 );

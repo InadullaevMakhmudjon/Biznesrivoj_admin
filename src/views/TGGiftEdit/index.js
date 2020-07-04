@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import langOptions from "../../config/langConfig";
 
 import Spinner from "../../components/Spinner";
 import EditableComponent from '../../components/EditableComponent';
@@ -15,6 +14,9 @@ import {
   getSingleGift,
   updateGift,
 } from "../../redux/modules/tg-single-gift/tgSingleGiftAction";
+
+import langOptions from "../../config/langConfig";
+import { deliveryOptions } from '../../config/tgConfigs';
 
 
 const TGGiftEdit = () => {
@@ -105,8 +107,9 @@ const TGGiftEdit = () => {
 
   return (
     <EditableComponent
-      pageTitle="TG Book Update"
+      pageTitle="TG Gift Update"
       defaultLang={langOptions[0]}
+      langOptions={langOptions}
       details={giftDetails}
       latin={latin}
       cyrillic={cyrillic}

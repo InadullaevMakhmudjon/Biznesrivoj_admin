@@ -7,7 +7,7 @@ export const UpdateArticleContainer = styled.div`
   background-color: #ffffff;
   margin: 10px;
   padding: 10px 10px 10px 10px;
-  max-width: 1440px;
+  max-width: 800px;
   margin: auto;
 `;
 

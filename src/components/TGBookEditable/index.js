@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import Files from "../articles/Files";
 
 import labelConfig from "../../config/labelConfig";
-
+import { deliveryOptions } from '../../config/tgConfigs';
 import {
   EditContainer,
   InputWrapper,
   LabelStyled,
   InputStyled,
   TextAreaStyled,
+  SelectWrapper,
+  SelectStyled,
 } from "./style";
 
 const TGBookEditable = ({
@@ -22,6 +24,8 @@ const TGBookEditable = ({
   handleChangePrice,
   handleChangeBonus,
   lang,
+  deliveryType,
+  setDeliveryType,
   descriptionCyrillic,
   descriptionLatin,
   handleDescriptionChangeCyrillic,
@@ -74,6 +78,20 @@ const TGBookEditable = ({
       />
     </InputWrapper>
     )}
+    {deliveryType && (
+    <SelectWrapper>
+      <LabelStyled>{labelConfig.delivery}</LabelStyled>
+      <SelectStyled
+        className="basic-single"
+        classNamePrefix="select"
+        defaultValue={deliveryType}
+        onChange={(e) => setDeliveryType(e)}
+        isClearable={false}
+        name="lang"
+        options={deliveryOptions}
+      />
+    </SelectWrapper>
+    )}
   </EditContainer>
 );
 
@@ -88,6 +106,8 @@ TGBookEditable.defaultProps = {
   handleChangePrice: () => {},
   handleChangeBonus: () => {},
   lang: 'uz',
+  deliveryType: {},
+  setDeliveryType: () => {},
   descriptionCyrillic: '',
   descriptionLatin: '',
   handleDescriptionChangeCyrillic: () => {},
@@ -101,6 +121,8 @@ TGBookEditable.propTypes = {
   handleImageChange: PropTypes.func,
   point: PropTypes.number,
   price: PropTypes.number,
+  deliveryType: PropTypes.objectOf(PropTypes.any),
+  setDeliveryType: PropTypes.func,
   handleChangePrice: PropTypes.func,
   handleChangeBonus: PropTypes.func,
   lang: PropTypes.string,

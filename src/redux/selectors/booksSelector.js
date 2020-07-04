@@ -10,6 +10,7 @@ const createFormattedBooks = (item) => ({
   title_uz: item.title_lat,
   price: item.price,
   point: item.point,
+  deliveryTypeId: item.deliveryTypeId,
   images: item.images.map((image) => image.url),
   description_kr: item.description_kr,
   description_uz: item.description_lat,

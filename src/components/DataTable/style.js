@@ -7,7 +7,7 @@ export const TableWrapper = styled.div`
   background-color: #ffffff;
   margin: 10px;
   padding: 0px 10px 10px 10px;
-  max-width:1440px;
+  width:100%;
   margin:auto;
 `;
 

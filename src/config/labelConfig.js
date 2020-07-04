@@ -5,4 +5,5 @@ export default {
   price: "Price",
   save: "Save",
   cancel: "Cancel",
+  delivery: 'Delivery Price',
 };

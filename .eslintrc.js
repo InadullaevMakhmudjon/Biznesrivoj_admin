@@ -20,6 +20,7 @@ module.exports = {
     "react/jsx-filename-extension": 0,
     "react/jsx-props-no-spreading": 0,
     "import/prefer-default-export": "off",
+    'max-len': 'off',
     quotes: [0, "single", { avoidEscape: true }],
   },
 };

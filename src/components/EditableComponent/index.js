@@ -12,7 +12,7 @@ import {
 } from "./style";
 
 import TGBookEditable from "../TGBookEditable";
-import TGBookPreview from "../TGBookPreview";
+
 import Button from "../Button";
 
 const EditableComponent = ({
@@ -32,6 +32,8 @@ const EditableComponent = ({
   handleCancel,
   lang,
   setLang,
+  deliveryType,
+  setDeliveryType,
 }) => (
   <UpdateArticleContainer>
     <HeadingStyled>{pageTitle}</HeadingStyled>
@@ -47,10 +49,8 @@ const EditableComponent = ({
         options={langOptions}
       />
     </SelectWrapper>
-
     <WrapperStyled>
       {details && (
-      <>
         <TGBookEditable
           title={details[`title_${lang.value}`]}
           lang={lang.value}
@@ -59,6 +59,8 @@ const EditableComponent = ({
           images={details.images}
           point={details.point}
           price={details.price}
+          deliveryType={deliveryType}
+          setDeliveryType={setDeliveryType}
           handleImageChange={handleImageChange}
           handleChangeTitle={handleTitleChange}
           handleDescriptionChangeLatin={handleDescriptionChangeLatin}
@@ -66,16 +68,6 @@ const EditableComponent = ({
           handleChangeBonus={handleChangeBonus}
           handleChangePrice={handleChangePrice}
         />
-        <TGBookPreview
-          title={details[`title_${lang.value}`]}
-          images={details.images}
-          lang={lang.value}
-          descriptionCyrillic={cyrillic}
-          descriptionLatin={latin}
-          point={details.point}
-          price={details.price}
-        />
-      </>
       )}
     </WrapperStyled>
     <Button
@@ -96,6 +88,8 @@ EditableComponent.defaultProps = {
   cyrillic: '',
   lang: {},
   setLang: () => {},
+  deliveryType: null,
+  setDeliveryType: () => {},
   handleImageChange: () => {},
   handleTitleChange: () => {},
   handleDescriptionChangeCyrillic: () => {},
@@ -115,6 +109,8 @@ EditableComponent.propTypes = {
   cyrillic: PropTypes.string,
   lang: PropTypes.objectOf(PropTypes.any),
   setLang: PropTypes.func,
+  deliveryType: PropTypes.objectOf(PropTypes.any),
+  setDeliveryType: PropTypes.func,
   handleImageChange: PropTypes.func,
   handleTitleChange: PropTypes.func,
   handleDescriptionChangeCyrillic: PropTypes.func,
